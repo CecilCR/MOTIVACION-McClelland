@@ -90,16 +90,21 @@
 <script>
   // 1. Definición de Situaciones en Segunda Persona (P5)
   const SITUACIONES = [
-    { id: 'logro-0', dim: 'logro', txt: "Tras entregar un proyecto exitoso, dedicas tus horas libres a desglosar métricas para entender qué falló para no haber alcanzado la perfección absoluta." },
-    { id: 'logro-1', dim: 'logro', txt: "Al elegir un reto, rechazas lo muy fácil o lo imposible; prefieres aquel donde el éxito dependa al 100% de tu capacidad técnica y esfuerzo." },
-    { id: 'logro-2', dim: 'logro', txt: "Sientes frustración si las metas son vagas; exiges KPIs numéricos diarios porque necesitas saber si hoy eres mejor que ayer." },
-    { id: 'poder-0', dim: 'poder', txt: "En una reunión caótica donde nadie decide nada, sientes la urgencia natural de tomar el mando, asignar tareas y convertirte en la autoridad." },
-    { id: 'poder-1', dim: 'poder', txt: "Priorizas en tu agenda reuniones con directivos de alto nivel para asegurar que tu visión prevalezca en la estrategia de largo plazo." },
-    { id: 'poder-2', dim: 'poder', txt: "Sientes una gratificación profunda cuando logras que un colega opositor termine aceptando tu postura como la única correcta." },
-    { id: 'afil-0', dim: 'afil', txt: "Inviertes tiempo en integrar al equipo para que todos estén felices, incluso si eso significa postergar la planificación operativa." },
-    { id: 'afil-1', dim: 'afil', txt: "Decides no dar un feedback correctivo a un colaborador cercano para evitar que la armonía del grupo o la relación de confianza se deterioren." },
-    { id: 'afil-2', dim: 'afil', txt: "Si te enteras de una reunión informal a la que no fuiste invitado, tu motivación cae drásticamente al percibir que no eres parte del círculo." }
-  ];
+  // LOGRO
+  { id: 'logro-0', dim: 'logro', txt: "Entregas un proyecto exitoso. Sin embargo, te enfocas en los pequeños errores que cometiste —aunque nadie más los haya notado— y dedicas tiempo a desglosar las métricas para entender exactamente qué falló." },
+  { id: 'logro-1', dim: 'logro', txt: "Al elegir un reto, rechazas lo muy fácil o lo imposible; prefieres aquel donde el éxito dependa al 100% de tu capacidad técnica y esfuerzo." },
+  { id: 'logro-2', dim: 'logro', txt: "Sientes frustración cuando las metas son vagas; prefieres objetivos claros y métricas precisas para poder medir y elevar constantemente tu propio performance." },
+  
+  // PODER
+  { id: 'poder-0', dim: 'poder', txt: "En una reunión caótica donde nadie decide nada, sientes la urgencia natural de tomar el mando, asignar tareas y convertirte en la autoridad que destrabe el conflicto." },
+  { id: 'poder-1', dim: 'poder', txt: "Buscas activamente espacios y reuniones con niveles directivos para asegurar que tus propuestas sean consideradas en las decisiones estratégicas de largo plazo." },
+  { id: 'poder-2', dim: 'poder', txt: "Sientes una gran gratificación personal cuando logras convencer a alguien que mantenía un punto de vista opuesto al tuyo sobre un tema crítico de trabajo." },
+  
+  // AFILIACIÓN
+  { id: 'afil-0', dim: 'afil', txt: "Inviertes tiempo en integrar al equipo para que todos estén felices, incluso si eso significa postergar la planificación operativa." },
+  { id: 'afil-1', dim: 'afil', txt: "Decides no dar un feedback correctivo a un colaborador cercano para evitar que la armonía del grupo o la relación de confianza se deterioren." },
+  { id: 'afil-2', dim: 'afil', txt: "Si te enteras de una reunión informal a la que no fuiste invitado, tu motivación cae al percibir que no estás siendo incluido en el círculo de confianza." }
+];
 
   // 2. Feedback de profundidad P5 (100-150 palabras)
   const FEEDBACK_P5 = {
