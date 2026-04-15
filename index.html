@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autodiagnóstico McClelland Avanzado</title>
+
+<style>
+body { font-family: Arial; background:#f7f7f7; margin:0; }
+.container { max-width:800px; margin:auto; padding:20px; }
+.card { background:white; padding:20px; margin-bottom:15px; border-radius:10px; }
+.btn { padding:10px; margin:5px; cursor:pointer; }
+.selected { background:black; color:white; }
+.result { margin-top:30px; padding:20px; background:#fff; border-left:5px solid black; }
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>Autodiagnóstico Motivacional (Avanzado)</h1>
+
+<p><strong>Instrucción:</strong> Responde según tu comportamiento real, no el ideal.</p>
+
+<div id="quiz"></div>
+
+<div class="card">
+<h3>Reflexión sobre rol</h3>
+<p>¿Respondiste como realmente eres o como exige tu rol actual?</p>
+<select id="rol">
+<option value="real">Como realmente soy</option>
+<option value="rol">Como exige mi rol</option>
+</select>
+</div>
+
+<button onclick="calcular()">Ver resultados</button>
+
+<div id="resultado" class="result" style="display:none;"></div>
+</div>
+
+<script>
+
+const preguntas = [
+{dim:"logro", txt:"Prefieres retos donde el resultado dependa totalmente de tu capacidad."},
+{dim:"logro", txt:"Analizas errores incluso después de tener éxito."},
+{dim:"logro", txt:"Buscas métricas constantes para medir desempeño."},
+
+{dim:"poder", txt:"Tomas el control cuando nadie decide."},
+{dim:"poder", txt:"Buscas influir en decisiones estratégicas."},
+{dim:"poder", txt:"Te satisface convencer a otros."},
+
+{dim:"afil", txt:"Priorizas la armonía del equipo."},
+{dim:"afil", txt:"Evitas conflictos aunque afecte resultados."},
+{dim:"afil", txt:"Te afecta no ser incluido socialmente."}
+];
+
+let respuestas = {};
+
+function render(){
+let html="";
+preguntas.forEach((p,i)=>{
+html+=`<div class="card">
+<p>${p.txt}</p>
+${[1,2,3,4,5].map(v=>`<button class="btn" onclick="resp(${i},${v})" id="b${i}${v}">${v}</button>`).join("")}
+</div>`;
+});
+document.getElementById("quiz").innerHTML=html;
+}
+
+function resp(i,v){
+respuestas[i]=v;
+[1,2,3,4,5].forEach(n=>{
+document.getElementById("b"+i+n).classList.remove("selected");
+});
+document.getElementById("b"+i+v).classList.add("selected");
+}
+
+function calcular(){
+
+let tot={logro:0,poder:0,afil:0};
+
+preguntas.forEach((p,i)=>{
+tot[p.dim]+=respuestas[i]||0;
+});
+
+// PROMEDIO SIMULADO
+let promedio={logro:10,poder:10,afil:10};
+
+// PERFIL DOMINANTE
+let dom=Object.keys(tot).reduce((a,b)=>tot[a]>tot[b]?a:b);
+
+// INTERPRETACIÓN COMBINADA
+let interpretacion="";
+
+if(tot.logro>tot.afil && tot.logro>tot.poder){
+interpretacion="Orientado a resultados, riesgo de microgestión.";
+}
+if(tot.poder>tot.logro && tot.poder>tot.afil){
+interpretacion="Alta influencia, riesgo de centralización.";
+}
+if(tot.afil>tot.logro && tot.afil>tot.poder){
+interpretacion="Alta cohesión, riesgo de evitar conflictos.";
+}
+
+// MIX
+if(tot.logro>10 && tot.poder>10){
+interpretacion+=" Perfil de alto desempeño con potencial de liderazgo estratégico.";
+}
+
+// PLAN DE ACCIÓN
+let accion="";
+if(dom=="logro"){
+accion="Delega una tarea clave esta semana.";
+}
+if(dom=="poder"){
+accion="Empodera a alguien sin intervenir.";
+}
+if(dom=="afil"){
+accion="Da un feedback difícil.";
+}
+
+// RESULTADO
+document.getElementById("resultado").style.display="block";
+document.getElementById("resultado").innerHTML=`
+<h2>Tu perfil motivacional</h2>
+
+<p><strong>Logro:</strong> ${tot.logro} (Promedio: ${promedio.logro})</p>
+<p><strong>Poder:</strong> ${tot.poder} (Promedio: ${promedio.poder})</p>
+<p><strong>Afiliación:</strong> ${tot.afil} (Promedio: ${promedio.afil})</p>
+
+<hr>
+
+<p><strong>Interpretación:</strong> ${interpretacion}</p>
+
+<p><strong>Reflexión sobre rol:</strong> ${document.getElementById("rol").value}</p>
+
+<hr>
+
+<p><strong>Micro-plan de acción:</strong> ${accion}</p>
+`;
+
+}
+
+render();
+
+</script>
+</body>
+</html>
