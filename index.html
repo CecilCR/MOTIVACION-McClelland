@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Autodiagnóstico McClelland P5 — GRO</title>
+  <title>Autodiagnóstico de Motivación P5 — Educación Ejecutiva</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -14,51 +14,57 @@
       --radius: 12px;
     }
 
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 50px; }
     
-    /* Progress Bar Sticky */
+    /* Barra de Progreso Sticky */
     .top-progress {
-      position: sticky; top: 0; width: 100%; height: 5px;
+      position: sticky; top: 0; width: 100%; height: 6px;
       background: var(--border); z-index: 1000;
     }
-    #progressBar { width: 0%; height: 100%; background: var(--accent); transition: width 0.3s ease; }
+    #progressBar { width: 0%; height: 100%; background: var(--accent); transition: width 0.4s ease; }
 
     .main { max-width: 720px; margin: 0 auto; padding: 40px 20px; }
-    .hero h1 { font-family: 'DM Serif Display', serif; font-size: 36px; margin-bottom: 10px; }
-    .hero p { color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; }
+    
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: 32px; margin-bottom: 12px; }
+    .hero p { color: var(--text-muted); margin-bottom: 35px; line-height: 1.6; font-size: 16px; }
 
+    /* Cards de Situaciones */
     .item-card { 
       background: var(--surface); border: 1px solid var(--border); 
-      border-radius: var(--radius); padding: 24px; margin-bottom: 20px;
-      transition: transform 0.2s ease;
+      border-radius: var(--radius); padding: 28px; margin-bottom: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
-    .item-situation { font-size: 15px; font-weight: 500; margin-bottom: 15px; line-height: 1.5; }
+    .item-situation { font-size: 16px; font-weight: 500; margin-bottom: 20px; line-height: 1.5; color: var(--text); }
     
-    .scale-btns { display: flex; gap: 8px; }
+    /* Escala Likert */
+    .scale-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+    .scale-btns { display: flex; gap: 10px; }
     .btn-val { 
-      flex: 1; height: 40px; border: 1px solid var(--border); 
-      background: var(--bg); cursor: pointer; border-radius: 6px;
-      font-weight: 500; transition: all 0.2s;
+      flex: 1; height: 45px; border: 1px solid var(--border); 
+      background: var(--surface); cursor: pointer; border-radius: 8px;
+      font-weight: 600; transition: all 0.2s; font-size: 15px;
     }
-    .btn-val:hover { border-color: var(--text); }
-    .btn-val.selected { background: var(--accent); color: white; border-color: var(--accent); transform: scale(1.05); }
+    .btn-val:hover { border-color: var(--text); background: var(--bg); }
+    .btn-val.selected { background: var(--accent); color: white; border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
-    /* Feedback P5 Styles */
-    .results-box { display: none; margin-top: 40px; animation: fadeIn 0.5s ease forwards; }
+    /* Resultados y Feedback */
+    .results-box { display: none; margin-top: 40px; animation: fadeIn 0.6s ease forwards; }
     .feedback-p5 { 
-      background: #fdfdfd; border-left: 4px solid var(--accent); 
-      padding: 25px; border-radius: 8px; margin-top: 20px; 
+      background: var(--surface); border-left: 5px solid var(--accent); 
+      padding: 30px; border-radius: 8px; border: 1px solid var(--border); border-left-width: 5px;
     }
-    .feedback-p5 h3 { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 15px; }
-    .risk-analysis { margin-top: 15px; padding: 15px; background: #fff5f5; border-radius: 6px; font-size: 14px; }
-    .critical-q { margin-top: 15px; font-style: italic; color: var(--text); font-weight: 500; border-top: 1px solid var(--border); padding-top: 10px; }
+    .feedback-p5 h3 { font-family: 'DM Serif Display', serif; font-size: 26px; margin-top: 0; color: var(--accent); }
+    .risk-analysis { margin-top: 20px; padding: 20px; background: #FFF9F5; border-radius: 8px; border: 1px solid #FFE4D3; line-height: 1.6; }
+    .critical-q { margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border); font-style: italic; color: var(--text); font-size: 15px; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     
     .btn-calc { 
-      width: 100%; padding: 16px; background: var(--text); color: white; 
-      border: none; border-radius: var(--radius); cursor: pointer; font-size: 16px;
+      width: 100%; padding: 18px; background: var(--accent); color: white; 
+      border: none; border-radius: var(--radius); cursor: pointer; font-size: 17px; font-weight: 600;
+      transition: opacity 0.2s;
     }
+    .btn-calc:hover { opacity: 0.9; }
   </style>
 </head>
 <body>
@@ -68,50 +74,52 @@
 <main class="main">
   <section class="hero">
     <h1>Autodiagnóstico de Motivación</h1>
-    <p>Sitúate en cada escenario de gestión y selecciona qué tan identificado te sientes con la reacción descrita. No busques la respuesta "correcta", busca tu impulso natural.</p>
+    <p>A continuación, se presentan 9 escenarios de gestión. Responde basándote en tu <strong>impulso natural</strong> ante cada situación, del 1 (Nada identificado) al 5 (Totalmente identificado).</p>
   </section>
 
   <div id="quizContainer"></div>
 
-  <button class="btn-calc" id="btnCalc">Ver mi Perfil de Gestión</button>
+  <button class="btn-calc" id="btnCalc">Generar Perfil Estratégico</button>
 
   <section class="results-box" id="resultsBox">
     <div id="feedbackContainer"></div>
-    <button onclick="location.reload()" style="margin-top:20px; background:none; border:1px solid #ccc; padding:10px; width:100%; cursor:pointer; border-radius:8px;">Reiniciar Evaluación</button>
+    <button onclick="localStorage.removeItem('scores_mcc'); location.reload();" style="margin-top:25px; background:none; border:1px solid #ccc; padding:12px; width:100%; cursor:pointer; border-radius:8px; font-family:inherit; color:var(--text-muted);">Reiniciar Evaluación</button>
   </section>
 </main>
 
 <script>
+  // 1. Definición de Situaciones en Segunda Persona (P5)
   const SITUACIONES = [
-    { id: 'logro-0', dim: 'logro', txt: "Tras un éxito rotundo, dedicas tus horas libres a desglosar métricas para entender qué falló para no haber alcanzado la perfección absoluta." },
-    { id: 'logro-1', dim: 'logro', txt: "Al elegir un nuevo reto, rechazas lo muy fácil o lo imposible; prefieres aquel donde el éxito dependa al 100% de tu capacidad técnica." },
-    { id: 'logro-2', dim: 'logro', txt: "Exiges a tu superior KPIs numéricos diarios porque necesitas saber, minuto a minuto, si hoy eres mejor gestor de lo que fuiste ayer." },
-    { id: 'poder-0', dim: 'poder', txt: "En una reunión caótica donde nadie decide nada, sientes la urgencia natural de tomar el mando, asignar tareas y ser la autoridad." },
-    { id: 'poder-1', dim: 'poder', txt: "Priorizas reuniones con directivos de alto nivel para asegurar que tu visión prevalezca en la estrategia de la organización a largo plazo." },
+    { id: 'logro-0', dim: 'logro', txt: "Tras entregar un proyecto exitoso, dedicas tus horas libres a desglosar métricas para entender qué falló para no haber alcanzado la perfección absoluta." },
+    { id: 'logro-1', dim: 'logro', txt: "Al elegir un reto, rechazas lo muy fácil o lo imposible; prefieres aquel donde el éxito dependa al 100% de tu capacidad técnica y esfuerzo." },
+    { id: 'logro-2', dim: 'logro', txt: "Sientes frustración si las metas son vagas; exiges KPIs numéricos diarios porque necesitas saber si hoy eres mejor que ayer." },
+    { id: 'poder-0', dim: 'poder', txt: "En una reunión caótica donde nadie decide nada, sientes la urgencia natural de tomar el mando, asignar tareas y convertirte en la autoridad." },
+    { id: 'poder-1', dim: 'poder', txt: "Priorizas en tu agenda reuniones con directivos de alto nivel para asegurar que tu visión prevalezca en la estrategia de largo plazo." },
     { id: 'poder-2', dim: 'poder', txt: "Sientes una gratificación profunda cuando logras que un colega opositor termine aceptando tu postura como la única correcta." },
-    { id: 'afil-0', dim: 'afil', txt: "Inviertes la última hora del viernes en integrar al equipo para que todos estén felices, incluso si dejas pendiente la planificación operativa." },
+    { id: 'afil-0', dim: 'afil', txt: "Inviertes tiempo en integrar al equipo para que todos estén felices, incluso si eso significa postergar la planificación operativa." },
     { id: 'afil-1', dim: 'afil', txt: "Decides no dar un feedback correctivo a un colaborador cercano para evitar que la armonía del grupo o la relación de confianza se deterioren." },
-    { id: 'afil-2', dim: 'afil', txt: "Si te enteras de una reunión informal de trabajo a la que no fuiste invitado, tu motivación cae al percibir que no eres parte del círculo de confianza." }
+    { id: 'afil-2', dim: 'afil', txt: "Si te enteras de una reunión informal a la que no fuiste invitado, tu motivación cae drásticamente al percibir que no eres parte del círculo." }
   ];
 
+  // 2. Feedback de profundidad P5 (100-150 palabras)
   const FEEDBACK_P5 = {
     logro: {
-      titulo: "Perfil Dominante: Necesidad de Logro (nAch)",
-      desc: "Eres un ejecutor de estándares excepcionales. Tu motor es la excelencia técnica y la superación de récords personales.",
-      riesgo: "Análisis P5: Tu riesgo es el 'agotamiento por perfección'. Al centrarte tanto en el resultado medible, puedes ver a los demás como obstáculos si no rinden a tu nivel. En cargos directivos, esto se traduce en dificultad para delegar y una tendencia a la microgestión.",
-      pregunta: "¿Cómo podrías redefinir el éxito para que incluya el desarrollo de otros y no solo tu producción individual?"
+      titulo: "Dominante: Necesidad de Logro (nAch)",
+      desc: "Tu motor es la excelencia individual y la superación de estándares técnicos.",
+      riesgo: "Tu riesgo principal es el 'techo de cristal' por falta de delegación. Al centrarte en que las cosas se hagan 'perfectas' (según tu criterio), podrías microgestionar a tu equipo, asfixiando su crecimiento y convirtiéndote en el cuello de botella operativo del área.",
+      pregunta: "¿Cómo podrías redefinir el éxito para que no dependa solo de tu ejecución, sino del empoderamiento de quienes te rodean?"
     },
     poder: {
-      titulo: "Perfil Dominante: Necesidad de Poder (nPow)",
-      desc: "Eres un motor de influencia. Te sientes cómodo en el centro de la toma de decisiones y dirigiendo el rumbo estratégico.",
-      riesgo: "Análisis P5: Si tu poder no es 'socializado' (orientado al bien común), puedes generar entornos de sumisión donde el talento se silencia. Tu riesgo es convertirte en un cuello de botella donde nada avance sin tu validación personal.",
-      pregunta: "¿Estás usando tu influencia para empoderar a tu equipo o para asegurar que tu voz sea la única que se escuche?"
+      titulo: "Dominante: Necesidad de Poder (nPow)",
+      desc: "Tu motor es el impacto, la influencia y el control sobre el rumbo estratégico.",
+      riesgo: "El riesgo radica en la creación de entornos de baja seguridad psicológica. Si tu necesidad de tener la razón prevalece sobre la escucha activa, tu equipo dejará de proponer ideas por temor a ser invalidado, limitando la innovación a solo lo que tú autorices.",
+      pregunta: "¿Estás usando tu capacidad de influencia para brillar tú o para despejar el camino para que otros brillen?"
     },
     afil: {
-      titulo: "Perfil Dominante: Necesidad de Afiliación (nAff)",
-      desc: "Eres el pegamento de la organización. Priorizas la cultura, el bienestar y la cohesión del equipo por sobre cualquier métrica fría.",
-      riesgo: "Análisis P5: Tu mayor riesgo es la 'evitación del conflicto necesario'. Al temer dañar el vínculo, puedes permitir mediocres desempeños o postergar decisiones difíciles, lo que a largo plazo erosiona la autoridad y los resultados del área.",
-      pregunta: "¿Qué es más costoso para el equipo: una conversación incómoda hoy o un fracaso operativo mañana por falta de feedback?"
+      titulo: "Dominante: Necesidad de Afiliación (nAff)",
+      desc: "Tu motor es la cohesión, la armonía y la calidad de los vínculos interpersonales.",
+      riesgo: "Tu mayor riesgo es la 'indulgencia dañina'. Al priorizar el bienestar emocional sobre la rendición de cuentas, puedes permitir que el rendimiento del área caiga, generando injusticias hacia los colaboradores de alto desempeño que ven cómo los errores no tienen consecuencias.",
+      pregunta: "¿Qué es más costoso para el equipo: una conversación incómoda a tiempo o un fracaso colectivo por falta de feedback?"
     }
   };
 
@@ -119,10 +127,19 @@
 
   function renderQuiz() {
     const container = document.getElementById('quizContainer');
+    container.innerHTML = ''; // Limpiar contenedor
+    
     SITUACIONES.forEach(s => {
       const card = document.createElement('div');
       card.className = 'item-card';
-      card.innerHTML = `<div class="item-situation">${s.txt}</div>`;
+      
+      card.innerHTML = `
+        <div class="item-situation">${s.txt}</div>
+        <div class="scale-label">
+          <span>Nada identificado</span>
+          <span>Totalmente identificado</span>
+        </div>
+      `;
       
       const btnGroup = document.createElement('div');
       btnGroup.className = 'scale-btns';
@@ -150,11 +167,15 @@
 
   function updateProgress() {
     const answered = Object.keys(scores).length;
-    document.getElementById('progressBar').style.width = (answered / 9 * 100) + '%';
+    const pct = (answered / SITUACIONES.length) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
   }
 
   document.getElementById('btnCalc').onclick = () => {
-    if(Object.keys(scores).length < 9) return alert("Por favor, responde a todas las situaciones antes de continuar.");
+    if(Object.keys(scores).length < 9) {
+      alert("Por favor, responde todas las situaciones para obtener un perfil preciso.");
+      return;
+    }
     
     const totals = { logro: 0, poder: 0, afil: 0 };
     SITUACIONES.forEach(s => totals[s.dim] += scores[s.id]);
@@ -165,19 +186,23 @@
     document.getElementById('feedbackContainer').innerHTML = `
       <div class="feedback-p5">
         <h3>${f.titulo}</h3>
-        <p>${f.desc}</p>
+        <p><strong>En síntesis:</strong> ${f.desc}</p>
         <div class="risk-analysis">
-          <strong>Análisis de Riesgo Organizacional:</strong><br>${f.riesgo}
+          <strong>⚠️ Análisis de Riesgo P5:</strong><br>
+          ${f.risk || f.riesgo}
         </div>
         <div class="critical-q">
-          <strong>Pregunta de Reflexión Crítica:</strong><br>${f.pregunta}
+          <strong>Pregunta de Reflexión Crítica:</strong><br>
+          <em>${f.pregunta}</em>
         </div>
       </div>
     `;
+    
     document.getElementById('resultsBox').style.display = 'block';
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
 
+  // Inicialización
   renderQuiz();
 </script>
 </body>
