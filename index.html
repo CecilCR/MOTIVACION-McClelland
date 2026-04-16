@@ -2,205 +2,781 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Autodiagnóstico Motivacional (McClelland)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil Motivacional McClelland | Instrumento de Autodiagnóstico</title>
+<meta property="og:type" content="sitio-web">
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     body {
-        font-family: Arial, sans-serif;
-        margin: 40px;
-        background-color: #f7f9fc;
+        font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e9edf2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
     }
-    h1, h2 {
+
+    .container {
+        max-width: 950px;
+        margin: 0 auto;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 2rem;
         color: #2c3e50;
+        margin-bottom: 10px;
     }
-    .question {
-        margin-bottom: 20px;
-        padding: 15px;
+
+    .header h1 span {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .header p {
+        color: #5a6c7e;
+        font-size: 1rem;
+    }
+
+    .badge-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+
+    .badge {
         background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding: 6px 14px;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        color: #4a5568;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
-    .scale label {
-        margin-right: 10px;
+
+    .badge strong {
+        color: #667eea;
     }
-    button {
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 16px;
-        border: none;
-        background-color: #3498db;
-        color: white;
-        border-radius: 5px;
+
+    .progress-section {
+        background: white;
+        border-radius: 16px;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .progress-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 0.85rem;
+        color: #4a5568;
+    }
+
+    .progress-bar-container {
+        height: 8px;
+        background: #e2e8f0;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        width: 0%;
+        transition: width 0.3s ease;
+        border-radius: 10px;
+    }
+
+    .question-card {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .question-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .dimension-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .dimension-logro { background: #e8f4fd; color: #1976d2; }
+    .dimension-poder { background: #fef3e8; color: #e67e22; }
+    .dimension-afiliacion { background: #e8fde8; color: #27ae60; }
+
+    .question-text {
+        font-size: 1rem;
+        color: #2d3748;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+
+    .likert-scale {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .likert-option {
+        flex: 1;
+        text-align: center;
+        min-width: 60px;
+    }
+
+    .likert-option input {
+        display: none;
+    }
+
+    .likert-option label {
+        display: block;
+        padding: 12px 8px;
+        background: #f7fafc;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
         cursor: pointer;
+        transition: all 0.2s;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #4a5568;
     }
+
+    .likert-option input:checked + label {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-color: #667eea;
+        color: white;
+    }
+
+    .likert-option label:hover {
+        border-color: #667eea;
+        transform: scale(1.02);
+    }
+
+    .option-label {
+        font-size: 0.7rem;
+        display: block;
+        margin-top: 5px;
+        color: #718096;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+    }
+
     .results {
+        background: white;
+        border-radius: 24px;
+        padding: 30px;
         margin-top: 30px;
+        display: none;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    .results.show {
+        display: block;
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dimension-card {
+        background: #f8fafc;
+        border-radius: 16px;
         padding: 20px;
-        background: #ecf0f1;
-        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .dimension-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .dimension-score {
+        font-size: 2rem;
+        font-weight: 800;
+        margin: 10px 0;
+    }
+
+    .dimension-level {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .level-very-high { background: #2ecc71; color: white; }
+    .level-high { background: #27ae60; color: white; }
+    .level-moderate-high { background: #f39c12; color: white; }
+    .level-moderate { background: #f1c40f; color: #2c3e50; }
+    .level-moderate-low { background: #e67e22; color: white; }
+    .level-low { background: #e74c3c; color: white; }
+
+    .progress-dimension {
+        height: 12px;
+        background: #e2e8f0;
+        border-radius: 10px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+
+    .progress-dimension-fill {
+        height: 100%;
+        border-radius: 10px;
+        width: 0%;
+        transition: width 0.5s ease;
+    }
+
+    .fill-logro { background: linear-gradient(90deg, #1976d2, #42a5f5); }
+    .fill-poder { background: linear-gradient(90deg, #e67e22, #f39c12); }
+    .fill-afiliacion { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+
+    .profile-box {
+        background: linear-gradient(135deg, #667eea15, #764ba215);
+        border-radius: 16px;
+        padding: 20px;
+        margin: 20px 0;
+        border-left: 4px solid #667eea;
+    }
+
+    .reflexion-box {
+        background: #fef9e8;
+        border-left: 4px solid #f39c12;
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+        color: #7d5d00;
+    }
+
+    .btn-export {
+        background: #2c3e50;
+        margin-top: 20px;
+    }
+
+    .btn-export:hover {
+        background: #1a252f;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 30px;
+        color: #718096;
+        font-size: 0.75rem;
+    }
+
+    @media (max-width: 600px) {
+        .likert-option label { padding: 8px 4px; font-size: 0.7rem; }
+        .option-label { display: none; }
+        .question-card { padding: 18px; }
+        .dimension-title { font-size: 1.1rem; }
+        .header h1 { font-size: 1.6rem; }
     }
 </style>
 </head>
 <body>
 
-<h1>Autodiagnóstico Motivacional</h1>
-<p><strong>Instrucción:</strong> Responde cada afirmación según tu nivel de acuerdo.</p>
+<div class="container">
+    <div class="header">
+        <h1>🎯 Perfil Motivacional <span>McClelland</span></h1>
+        <p>Autodiagnóstico basado en la teoría de necesidades: Logro · Poder · Afiliación</p>
+        <div class="badge-container">
+            <div class="badge"><strong>⏱️ 8-10 min</strong></div>
+            <div class="badge"><strong>📊 3 dimensiones</strong></div>
+            <div class="badge"><strong>🔬 9 ítems</strong></div>
+        </div>
+    </div>
 
-<form id="quizForm">
+    <div class="progress-section">
+        <div class="progress-header">
+            <span>📋 Progreso del autodiagnóstico</span>
+            <span id="completed-count">0/9 respondidas</span>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
 
-<!-- LOGRO -->
-<h2>Logro (nAch)</h2>
+    <form id="quizForm">
+        <!-- PREGUNTA 1 - LOGRO -->
+        <div class="question-card">
+            <span class="dimension-tag dimension-logro">🏆 LOGRO</span>
+            <div class="question-text">1. Cuando obtienes un buen resultado, ¿tiendes a celebrarlo y avanzar rápidamente, o prefieres detenerte a analizar minuciosamente qué podrías haber hecho mejor?</div>
+            <div class="likert-scale">
+                <div class="likert-option"><input type="radio" name="q1" value="1" id="q1_1"><label for="q1_1">1<br><span class="option-label">Celebrar y avanzar</span></label></div>
+                <div class="likert-option"><input type="radio" name="q1" value="2" id="q1_2"><label for="q1_2">2<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q1" value="3" id="q1_3"><label for="q1_3">3<br><span class="option-label">Equilibrio</span></label></div>
+                <div class="likert-option"><input type="radio" name="q1" value="4" id="q1_4"><label for="q1_4">4<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q1" value="5" id="q1_5"><label for="q1_5">5<br><span class="option-label">Analizar minuciosamente</span></label></div>
+            </div>
+        </div>
 
-<div class="question">
-<p>1. Cuando obtienes un buen resultado, analizas en detalle qué podrías haber hecho mejor, incluso en aspectos que otros no notan.</p>
-<div class="scale">
-<input type="radio" name="q1" value="1">1
-<input type="radio" name="q1" value="2">2
-<input type="radio" name="q1" value="3">3
-<input type="radio" name="q1" value="4">4
-<input type="radio" name="q1" value="5">5
-</div>
-</div>
+        <!-- PREGUNTA 2 - LOGRO -->
+        <div class="question-card">
+            <span class="dimension-tag dimension-logro">🏆 LOGRO</span>
+            <div class="question-text">2. Prefieres desafíos donde el resultado dependa principalmente de tu esfuerzo y habilidades, más que de factores externos o la suerte.</div>
+            <div class="likert-scale">
+                <div class="likert-option"><input type="radio" name="q2" value="1" id="q2_1"><label for="q2_1">1<br><span class="option-label">Muy en desacuerdo</span></label></div>
+                <div class="likert-option"><input type="radio" name="q2" value="2" id="q2_2"><label for="q2_2">2<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q2" value="3" id="q2_3"><label for="q2_3">3<br><span class="option-label">Neutral</span></label></div>
+                <div class="likert-option"><input type="radio" name="q2" value="4" id="q2_4"><label for="q2_4">4<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q2" value="5" id="q2_5"><label for="q2_5">5<br><span class="option-label">Muy de acuerdo</span></label></div>
+            </div>
+        </div>
 
-<div class="question">
-<p>2. Prefieres desafíos donde el resultado dependa de tu esfuerzo y habilidades.</p>
-<div class="scale">
-<input type="radio" name="q2" value="1">1
-<input type="radio" name="q2" value="2">2
-<input type="radio" name="q2" value="3">3
-<input type="radio" name="q2" value="4">4
-<input type="radio" name="q2" value="5">5
-</div>
-</div>
+        <!-- PREGUNTA 3 - LOGRO -->
+        <div class="question-card">
+            <span class="dimension-tag dimension-logro">🏆 LOGRO</span>
+            <div class="question-text">3. Entre un objetivo claro con métricas definidas (pero poco desafiante) y un objetivo ambicioso pero con métricas difusas, ¿cuál te motiva más?</div>
+            <div class="likert-scale">
+                <div class="likert-option"><input type="radio" name="q3" value="1" id="q3_1"><label for="q3_1">1<br><span class="option-label">Claro pero poco desafiante</span></label></div>
+                <div class="likert-option"><input type="radio" name="q3" value="2" id="q3_2"><label for="q3_2">2<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q3" value="3" id="q3_3"><label for="q3_3">3<br><span class="option-label">Equilibrio</span></label></div>
+                <div class="likert-option"><input type="radio" name="q3" value="4" id="q3_4"><label for="q3_4">4<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q3" value="5" id="q3_5"><label for="q3_5">5<br><span class="option-label">Ambicioso aunque difuso</span></label></div>
+            </div>
+        </div>
 
-<div class="question">
-<p>3. Te motivan más los objetivos claros con métricas definidas.</p>
-<div class="scale">
-<input type="radio" name="q3" value="1">1
-<input type="radio" name="q3" value="2">2
-<input type="radio" name="q3" value="3">3
-<input type="radio" name="q3" value="4">4
-<input type="radio" name="q3" value="5">5
-</div>
-</div>
+        <!-- PREGUNTA 4 - PODER -->
+        <div class="question-card">
+            <span class="dimension-tag dimension-poder">⚡ PODER</span>
+            <div class="question-text">4. En situaciones sin dirección clara, ¿tiendes a asumir el liderazgo aunque eso genere fricción, o prefieres esperar a que alguien más lo haga?</div>
+            <div class="likert-scale">
+                <div class="likert-option"><input type="radio" name="q4" value="1" id="q4_1"><label for="q4_1">1<br><span class="option-label">Esperar a que otro lidere</span></label></div>
+                <div class="likert-option"><input type="radio" name="q4" value="2" id="q4_2"><label for="q4_2">2<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q4" value="3" id="q4_3"><label for="q4_3">3<br><span class="option-label">Depende</span></label></div>
+                <div class="likert-option"><input type="radio" name="q4" value="4" id="q4_4"><label for="q4_4">4<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q4" value="5" id="q4_5"><label for="q4_5">5<br><span class="option-label">Asumir aunque genere fricción</span></label></div>
+            </div>
+        </div>
 
-<!-- PODER -->
-<h2>Poder (nPow)</h2>
+        <!-- PREGUNTA 5 - PODER -->
+        <div class="question-card">
+            <span class="dimension-tag dimension-poder">⚡ PODER</span>
+            <div class="question-text">5. Cuando no te incluyen en una decisión importante que te afecta, ¿buscas activamente influir en ella aunque genere tensión, o aceptas el resultado para evitar conflictos?</div>
+            <div class="likert-scale">
+                <div class="likert-option"><input type="radio" name="q5" value="1" id="q5_1"><label for="q5_1">1<br><span class="option-label">Aceptar para evitar conflictos</span></label></div>
+                <div class="likert-option"><input type="radio" name="q5" value="2" id="q5_2"><label for="q5_2">2<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q5" value="3" id="q5_3"><label for="q5_3">3<br><span class="option-label">Depende</span></label></div>
+                <div class="likert-option"><input type="radio" name="q5" value="4" id="q5_4"><label for="q5_4">4<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q5" value="5" id="q5_5"><label for="q5_5">5<br><span class="option-label">Influir aunque genere tensión</span></label></div>
+            </div>
+        </div>
 
-<div class="question">
-<p>4. En situaciones sin dirección clara, tiendes a asumir liderazgo.</p>
-<div class="scale">
-<input type="radio" name="q4" value="1">1
-<input type="radio" name="q4" value="2">2
-<input type="radio" name="q4" value="3">3
-<input type="radio" name="q4" value="4">4
-<input type="radio" name="q4" value="5">5
-</div>
-</div>
+        <!-- PREGUNTA 6 - PODER -->
+        <div class="question-card">
+            <span class="dimension-tag dimension-poder">⚡ PODER</span>
+            <div class="question-text">6. Alinear personas con opiniones distintas consume mucha energía. ¿Lo disfrutas genuinamente o lo haces solo cuando es estrictamente necesario?</div>
+            <div class="likert-scale">
+                <div class="likert-option"><input type="radio" name="q6" value="1" id="q6_1"><label for="q6_1">1<br><span class="option-label">Solo cuando es necesario</span></label></div>
+                <div class="likert-option"><input type="radio" name="q6" value="2" id="q6_2"><label for="q6_2">2<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q6" value="3" id="q6_3"><label for="q6_3">3<br><span class="option-label">Equilibrio</span></label></div>
+                <div class="likert-option"><input type="radio" name="q6" value="4" id="q6_4"><label for="q6_4">4<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q6" value="5" id="q6_5"><label for="q6_5">5<br><span class="option-label">Lo disfruto genuinamente</span></label></div>
+            </div>
+        </div>
 
-<div class="question">
-<p>5. Buscas influir en decisiones importantes.</p>
-<div class="scale">
-<input type="radio" name="q5" value="1">1
-<input type="radio" name="q5" value="2">2
-<input type="radio" name="q5" value="3">3
-<input type="radio" name="q5" value="4">4
-<input type="radio" name="q5" value="5">5
-</div>
-</div>
+        <!-- PREGUNTA 7 - AFILIACIÓN -->
+        <div class="question-card">
+            <span class="dimension-tag dimension-afiliacion">🤝 AFILIACIÓN</span>
+            <div class="question-text">7. Para ti, es muy relevante invertir tiempo y energía en construir un ambiente de confianza y colaboración.</div>
+            <div class="likert-scale">
+                <div class="likert-option"><input type="radio" name="q7" value="1" id="q7_1"><label for="q7_1">1<br><span class="option-label">Muy en desacuerdo</span></label></div>
+                <div class="likert-option"><input type="radio" name="q7" value="2" id="q7_2"><label for="q7_2">2<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q7" value="3" id="q7_3"><label for="q7_3">3<br><span class="option-label">Neutral</span></label></div>
+                <div class="likert-option"><input type="radio" name="q7" value="4" id="q7_4"><label for="q7_4">4<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q7" value="5" id="q7_5"><label for="q7_5">5<br><span class="option-label">Muy de acuerdo</span></label></div>
+            </div>
+        </div>
 
-<div class="question">
-<p>6. Disfrutas alinear personas con opiniones distintas hacia una solución común.</p>
-<div class="scale">
-<input type="radio" name="q6" value="1">1
-<input type="radio" name="q6" value="2">2
-<input type="radio" name="q6" value="3">3
-<input type="radio" name="q6" value="4">4
-<input type="radio" name="q6" value="5">5
-</div>
-</div>
+        <!-- PREGUNTA 8 - AFILIACIÓN -->
+        <div class="question-card">
+            <span class="dimension-tag dimension-afiliacion">🤝 AFILIACIÓN</span>
+            <div class="question-text">8. Evitar dar feedback negativo es una prioridad para ti, incluso si eso significa postergar una corrección necesaria.</div>
+            <div class="likert-scale">
+                <div class="likert-option"><input type="radio" name="q8" value="1" id="q8_1"><label for="q8_1">1<br><span class="option-label">Muy en desacuerdo</span></label></div>
+                <div class="likert-option"><input type="radio" name="q8" value="2" id="q8_2"><label for="q8_2">2<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q8" value="3" id="q8_3"><label for="q8_3">3<br><span class="option-label">Neutral</span></label></div>
+                <div class="likert-option"><input type="radio" name="q8" value="4" id="q8_4"><label for="q8_4">4<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q8" value="5" id="q8_5"><label for="q8_5">5<br><span class="option-label">Muy de acuerdo</span></label></div>
+            </div>
+        </div>
 
-<!-- AFILIACIÓN -->
-<h2>Afiliación (nAff)</h2>
+        <!-- PREGUNTA 9 - AFILIACIÓN -->
+        <div class="question-card">
+            <span class="dimension-tag dimension-afiliacion">🤝 AFILIACIÓN</span>
+            <div class="question-text">9. Cuando no eres incluido en un grupo o actividad importante, ¿tu motivación baja significativamente o logras mantener tu rendimiento sin que te afecte demasiado?</div>
+            <div class="likert-scale">
+                <div class="likert-option"><input type="radio" name="q9" value="1" id="q9_1"><label for="q9_1">1<br><span class="option-label">No me afecta</span></label></div>
+                <div class="likert-option"><input type="radio" name="q9" value="2" id="q9_2"><label for="q9_2">2<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q9" value="3" id="q9_3"><label for="q9_3">3<br><span class="option-label">Afecta moderadamente</span></label></div>
+                <div class="likert-option"><input type="radio" name="q9" value="4" id="q9_4"><label for="q9_4">4<br><span class="option-label">&nbsp;</span></label></div>
+                <div class="likert-option"><input type="radio" name="q9" value="5" id="q9_5"><label for="q9_5">5<br><span class="option-label">Baja significativamente</span></label></div>
+            </div>
+        </div>
 
-<div class="question">
-<p>7. Inviertes esfuerzo en crear un ambiente de confianza y colaboración.</p>
-<div class="scale">
-<input type="radio" name="q7" value="1">1
-<input type="radio" name="q7" value="2">2
-<input type="radio" name="q7" value="3">3
-<input type="radio" name="q7" value="4">4
-<input type="radio" name="q7" value="5">5
-</div>
-</div>
+        <button type="button" class="btn-submit" onclick="calcularResultados()">📊 Ver mi perfil motivacional</button>
+    </form>
 
-<div class="question">
-<p>8. Evitas dar feedback muy directo si puede afectar la relación.</p>
-<div class="scale">
-<input type="radio" name="q8" value="1">1
-<input type="radio" name="q8" value="2">2
-<input type="radio" name="q8" value="3">3
-<input type="radio" name="q8" value="4">4
-<input type="radio" name="q8" value="5">5
-</div>
-</div>
+    <div class="results" id="results">
+        <h2>🎯 Tu perfil motivacional</h2>
+        <div id="reflexion-container"></div>
+        <div id="dimensions-container"></div>
+        <div id="profile-container"></div>
+        <div id="recommendations-container"></div>
+        <button class="btn-submit btn-export" onclick="exportarReporte()">📄 Exportar reporte</button>
+        <button class="btn-submit btn-export" onclick="reiniciarTest()" style="background:#95a5a6; margin-top:10px;">🔄 Realizar test nuevamente</button>
+    </div>
 
-<div class="question">
-<p>9. Tu motivación baja cuando sientes que no eres incluido en el grupo.</p>
-<div class="scale">
-<input type="radio" name="q9" value="1">1
-<input type="radio" name="q9" value="2">2
-<input type="radio" name="q9" value="3">3
-<input type="radio" name="q9" value="4">4
-<input type="radio" name="q9" value="5">5
+    <footer>
+        Basado en la teoría de McClelland (1961) | Instrumento de autodiagnóstico
+    </footer>
 </div>
-</div>
-
-<button type="button" onclick="calcularResultados()">Ver resultados</button>
-
-</form>
-
-<div class="results" id="results"></div>
 
 <script>
-function interpretar(valor) {
-    if (valor >= 12) return "Alto";
-    if (valor >= 8) return "Medio";
-    return "Bajo";
-}
+    (function() {
+        // Inicialización y variables de estado
+        let reporteData = null;
 
-function calcularResultados() {
-    let totalLogro = 0, totalPoder = 0, totalAfiliacion = 0;
+        function actualizarProgreso() {
+            let respondidas = 0;
+            for (let i = 1; i <= 9; i++) {
+                const seleccionado = document.querySelector(`input[name="q${i}"]:checked`);
+                if (seleccionado) respondidas++;
+            }
+            const porcentaje = (respondidas / 9) * 100;
+            const progressFill = document.getElementById('progress-fill');
+            const completedCount = document.getElementById('completed-count');
+            if (progressFill) progressFill.style.width = porcentaje + '%';
+            if (completedCount) completedCount.innerText = `${respondidas}/9 respondidas`;
+        }
 
-    for (let i = 1; i <= 3; i++) {
-        totalLogro += parseInt(document.querySelector('input[name="q'+i+'"]:checked')?.value || 0);
-    }
+        function obtenerNivel(puntaje, maximo) {
+            const porcentaje = (puntaje / maximo) * 100;
+            if (porcentaje >= 85) return { nombre: "Muy Alto", clase: "level-very-high" };
+            if (porcentaje >= 70) return { nombre: "Alto", clase: "level-high" };
+            if (porcentaje >= 60) return { nombre: "Moderadamente Alto", clase: "level-moderate-high" };
+            if (porcentaje >= 40) return { nombre: "Moderado", clase: "level-moderate" };
+            if (porcentaje >= 25) return { nombre: "Moderadamente Bajo", clase: "level-moderate-low" };
+            return { nombre: "Bajo", clase: "level-low" };
+        }
 
-    for (let i = 4; i <= 6; i++) {
-        totalPoder += parseInt(document.querySelector('input[name="q'+i+'"]:checked')?.value || 0);
-    }
+        function detectarPatrones(respuestas) {
+            const valores = Object.values(respuestas);
+            const reflexiones = [];
+            
+            if (valores.length === 0) return reflexiones;
+            
+            let consecutivos = 1;
+            for (let i = 1; i < valores.length; i++) {
+                if (valores[i] === valores[i-1]) consecutivos++;
+                else consecutivos = 1;
+                if (consecutivos >= 3) {
+                    reflexiones.push("💭 Notaste que elegiste la misma opción varias veces seguidas. Antes de continuar, revisa rápidamente esas preguntas y confirma que realmente representan lo que piensas. A veces tendemos a responder rápido sin detenernos a reflexionar.");
+                    break;
+                }
+            }
+            
+            const frecuencias = {};
+            valores.forEach(v => frecuencias[v] = (frecuencias[v] || 0) + 1);
+            for (const [opcion, count] of Object.entries(frecuencias)) {
+                const porcentaje = (count / valores.length) * 100;
+                if (porcentaje > 70) {
+                    let opcionTexto = "";
+                    if (opcion === "1") opcionTexto = "Muy en desacuerdo";
+                    else if (opcion === "2") opcionTexto = "En desacuerdo";
+                    else if (opcion === "3") opcionTexto = "Neutral";
+                    else if (opcion === "4") opcionTexto = "De acuerdo";
+                    else if (opcion === "5") opcionTexto = "Muy de acuerdo";
+                    reflexiones.push(`💭 El ${Math.round(porcentaje)}% de tus respuestas son "${opcionTexto}". Te invitamos a repasar las preguntas donde elegiste esa opción y preguntarte: ¿realmente representa mi posición en cada caso? A veces respondemos por inercia; vale la pena una segunda mirada.`);
+                    break;
+                }
+            }
+            
+            const soloExtremos = valores.every(v => v === 1 || v === 5);
+            if (soloExtremos && valores.length >= 6) {
+                reflexiones.push("💭 Observamos que todas tus respuestas son extremas (Muy en desacuerdo o Muy de acuerdo). Las experiencias humanas suelen tener matices. Te sugerimos revisar si en alguna pregunta tu opinión real está más cerca de un punto intermedio.");
+            }
+            
+            let esAlternante = true;
+            for (let i = 1; i < valores.length && i < 6; i++) {
+                if (valores[i] === valores[i-1]) {
+                    esAlternante = false;
+                    break;
+                }
+            }
+            if (esAlternante && valores.length >= 5) {
+                reflexiones.push("💭 Detectamos un patrón alternado en tus respuestas. Esto puede ocurrir cuando se responde rápidamente sin leer con atención cada pregunta. Te invitamos a revisar tus elecciones y confirmar que cada una refleja tu opinión genuina.");
+            }
+            
+            return reflexiones;
+        }
 
-    for (let i = 7; i <= 9; i++) {
-        totalAfiliacion += parseInt(document.querySelector('input[name="q'+i+'"]:checked')?.value || 0);
-    }
+        function obtenerPerfil(logroNivel, poderNivel, afiliacionNivel) {
+            const logroAlto = logroNivel.nombre === "Muy Alto" || logroNivel.nombre === "Alto";
+            const poderAlto = poderNivel.nombre === "Muy Alto" || poderNivel.nombre === "Alto";
+            const afiliacionAlto = afiliacionNivel.nombre === "Muy Alto" || afiliacionNivel.nombre === "Alto";
+            
+            if (logroAlto && poderAlto && afiliacionAlto) {
+                return {
+                    titulo: "🏆 Perfil Motivacional Equilibrado",
+                    descripcion: "Presentas un balance notable entre las tres motivaciones. Buscas la excelencia (logro), influencia (poder) y relaciones sólidas (afiliación). Es el perfil de líderes efectivos que saben cuándo aplicar cada impulso.",
+                    recomendacion: "Tu principal desafío es evitar la sobrecarga al querer atender simultáneamente las tres necesidades. Desarrolla la capacidad de alternar conscientemente: en momentos de crisis técnica, activa tu orientación al logro; en negociaciones complejas, apela a tu motivación de poder; en procesos de integración de equipos nuevos, prioriza la afiliación. La efectividad no es tener todas las motivaciones altas, sino saber cuál activar en cada circunstancia."
+                };
+            } else if (logroAlto && poderAlto) {
+                return {
+                    titulo: "⚡ Perfil Ejecutivo (Logro + Poder)",
+                    descripcion: "Combina la búsqueda de resultados con la capacidad de influir en otros. Es común en emprendedores, directivos y líderes de proyectos de alto impacto.",
+                    recomendacion: "El riesgo de este perfil es descuidar el factor humano. Incorpora dos prácticas: (1) antes de cerrar una decisión, pregunta '¿cómo afecta esto a las personas?'; (2) programa reuniones breves sin agenda de resultados, solo para escuchar. Los líderes que solo miden logros terminan con equipos que miden logros, pero no equipos comprometidos."
+                };
+            } else if (logroAlto && afiliacionAlto) {
+                return {
+                    titulo: "🎯 Perfil Colaborador Excelente (Logro + Afiliación)",
+                    descripcion: "Buscas resultados sin sacrificar las relaciones. Eres un jugador de equipo ideal: motivas, colaboras y exiges calidad. Muy valorado en entornos de innovación.",
+                    recomendacion: "Tu punto ciego es evitar conflictos por mantener la armonía. El logro real a veces requiere conversaciones incómodas. Practica la frase 'valoro nuestra relación y por eso soy honesto sobre este tema'. Los equipos de alto rendimiento no evitan conflictos, los resuelven con respeto."
+                };
+            } else if (poderAlto && afiliacionAlto) {
+                return {
+                    titulo: "👥 Perfil Conciliador (Poder + Afiliación)",
+                    descripcion: "Influyes desde la empatía y el consenso. Eres un líder natural que prefiere persuadir antes que imponer. Excelente para gestionar equipos diversos.",
+                    recomendacion: "El desafío es que la búsqueda de consenso no paralice las decisiones. Diferencia: decisiones operativas pueden ser consultivas (escuchas pero decides tú); decisiones estratégicas deben ser consensuadas (involucras al equipo). Aprender a alternar es tu clave."
+                };
+            } else if (logroAlto) {
+                return {
+                    titulo: "🏅 Perfil Orientado al Logro",
+                    descripcion: "Tu motor es la excelencia, la mejora continua y la superación de desafíos. Estableces estándares altos. Común en profesionales técnicos y expertos.",
+                    recomendacion: "Tu fortaleza es la autodisciplina; tu riesgo es el aislamiento. Dedica tiempo a dos actividades: (1) enseñar a otros lo que sabes (multiplica tu impacto), (2) pedir ayuda antes de estar atascado (no es debilidad, es inteligencia estratégica). Los mejores profesionales no son los que nunca fallan, son los que aprenden más rápido de sus errores."
+                };
+            } else if (poderAlto) {
+                return {
+                    titulo: "👑 Perfil Orientado al Poder",
+                    descripcion: "Te motiva influir, liderar y dejar huella. Buscas posiciones donde puedas orientar el rumbo. Frecuente en gerentes y líderes de opinión.",
+                    recomendacion: "El poder sin propósito legítimo genera resistencia. Cultiva el poder que se da voluntariamente: (1) explica el 'por qué' detrás de tus decisiones; (2) reconoce las contribuciones de otros; (3) asume responsabilidad cuando los resultados no son los esperados. El poder que se da es más efectivo que el que se impone."
+                };
+            } else if (afiliacionAlto) {
+                return {
+                    titulo: "🤝 Perfil Orientado a la Afiliación",
+                    descripcion: "Valoras las relaciones, la confianza y la pertenencia. Tu motivación aumenta en equipo y disminuye con la exclusión. Esencial en RR.HH., atención al cliente y liderazgo de equipos.",
+                    recomendacion: "Tu superpoder es construir confianza; tu riesgo es priorizar la armonía sobre la honestidad. Aprende a dar feedback directo: enfócate en conductas observables, no en intenciones. Usa la estructura: 'Cuando haces X, el impacto es Y. Necesito Z.' Las relaciones más sólidas no evitan conflictos, los transitan con respeto."
+                };
+            } else {
+                return {
+                    titulo: "🌱 Perfil en Desarrollo (motivaciones moderadas)",
+                    descripcion: "Tus tres motivaciones están en niveles moderados o bajos. Puede ser un momento de exploración profesional o que el contexto actual no activa tus motivadores.",
+                    recomendacion: "En lugar de preguntarte 'qué motivación tengo', pregúntate 'qué situaciones me generan energía y cuáles me la drenan'. Lleva un registro durante dos semanas. Las motivaciones no son rasgos fijos, son estados que varían según el contexto. Tu tarea es diseñar un entorno que active naturalmente tu energía."
+                };
+            }
+        }
 
-    let resultado = `
-    <h2>Resultados</h2>
-    <p><strong>Logro:</strong> ${totalLogro} (${interpretar(totalLogro)})</p>
-    <p><strong>Poder:</strong> ${totalPoder} (${interpretar(totalPoder)})</p>
-    <p><strong>Afiliación:</strong> ${totalAfiliacion} (${interpretar(totalAfiliacion)})</p>
+        window.calcularResultados = function() {
+            let respuestas = {};
+            let todasRespondidas = true;
+            
+            for (let i = 1; i <= 9; i++) {
+                const seleccionado = document.querySelector(`input[name="q${i}"]:checked`);
+                if (!seleccionado) {
+                    todasRespondidas = false;
+                    break;
+                }
+                respuestas[i] = parseInt(seleccionado.value, 10);
+            }
+            
+            if (!todasRespondidas) {
+                alert("❌ Por favor, responde todas las 9 preguntas antes de ver tus resultados.");
+                return;
+            }
+            
+            const totalLogro = respuestas[1] + respuestas[2] + respuestas[3];
+            const totalPoder = respuestas[4] + respuestas[5] + respuestas[6];
+            const totalAfiliacion = respuestas[7] + respuestas[8] + respuestas[9];
+            
+            const maxPorDimension = 15;
+            
+            const nivelLogro = obtenerNivel(totalLogro, maxPorDimension);
+            const nivelPoder = obtenerNivel(totalPoder, maxPorDimension);
+            const nivelAfiliacion = obtenerNivel(totalAfiliacion, maxPorDimension);
+            
+            const reflexiones = detectarPatrones(respuestas);
+            const perfil = obtenerPerfil(nivelLogro, nivelPoder, nivelAfiliacion);
+            
+            const reflexionContainer = document.getElementById('reflexion-container');
+            const dimensionsContainer = document.getElementById('dimensions-container');
+            const profileContainer = document.getElementById('profile-container');
+            const recommendationsContainer = document.getElementById('recommendations-container');
+            
+            if (reflexionContainer) {
+                reflexionContainer.innerHTML = reflexiones.map(r => `<div class="reflexion-box">${r}</div>`).join('');
+            }
+            
+            if (dimensionsContainer) {
+                dimensionsContainer.innerHTML = `
+                    <div class="dimension-card">
+                        <div class="dimension-title">🏆 Logro</div>
+                        <div class="dimension-score">${totalLogro} / ${maxPorDimension}</div>
+                        <span class="dimension-level ${nivelLogro.clase}">${nivelLogro.nombre}</span>
+                        <div class="progress-dimension"><div class="progress-dimension-fill fill-logro" style="width: ${(totalLogro/maxPorDimension)*100}%"></div></div>
+                        <p style="margin-top: 12px; color:#4a5568;">Necesidad de superar desafíos, mejorar continuamente y alcanzar estándares de excelencia.</p>
+                    </div>
+                    <div class="dimension-card">
+                        <div class="dimension-title">⚡ Poder</div>
+                        <div class="dimension-score">${totalPoder} / ${maxPorDimension}</div>
+                        <span class="dimension-level ${nivelPoder.clase}">${nivelPoder.nombre}</span>
+                        <div class="progress-dimension"><div class="progress-dimension-fill fill-poder" style="width: ${(totalPoder/maxPorDimension)*100}%"></div></div>
+                        <p style="margin-top: 12px; color:#4a5568;">Necesidad de influir, liderar y tener impacto en decisiones importantes.</p>
+                    </div>
+                    <div class="dimension-card">
+                        <div class="dimension-title">🤝 Afiliación</div>
+                        <div class="dimension-score">${totalAfiliacion} / ${maxPorDimension}</div>
+                        <span class="dimension-level ${nivelAfiliacion.clase}">${nivelAfiliacion.nombre}</span>
+                        <div class="progress-dimension"><div class="progress-dimension-fill fill-afiliacion" style="width: ${(totalAfiliacion/maxPorDimension)*100}%"></div></div>
+                        <p style="margin-top: 12px; color:#4a5568;">Necesidad de establecer relaciones, colaborar y sentir pertenencia al grupo.</p>
+                    </div>
+                `;
+            }
+            
+            if (profileContainer) {
+                profileContainer.innerHTML = `
+                    <div class="profile-box">
+                        <h3>${perfil.titulo}</h3>
+                        <p style="margin-top: 10px;">${perfil.descripcion}</p>
+                    </div>
+                `;
+            }
+            
+            if (recommendationsContainer) {
+                recommendationsContainer.innerHTML = `
+                    <div class="profile-box" style="background: #e8f4fd; border-left-color: #1976d2;">
+                        <h3>💡 Desarrollo de tu perfil motivacional</h3>
+                        <p>${perfil.recomendacion}</p>
+                        <hr style="margin: 15px 0; border-color: #cbd5e1;">
+                        <p style="font-size: 0.85rem;"><strong>📚 ¿Qué hacer con este diagnóstico?</strong> Las motivaciones no son etiquetas fijas. McClelland demostró que se pueden desarrollar con la exposición a entornos y prácticas específicas. Usa este perfil como punto de partida. En seis meses, vuelve a tomar el test: habrás cambiado.</p>
+                        <p style="font-size: 0.8rem; color: #5a6c7e; margin-top: 12px;"><strong>Referencia:</strong> McClelland, D. C. (1961). <em>The Achieving Society</em>. Princeton: Van Nostrand.</p>
+                    </div>
+                `;
+            }
+            
+            const resultsDiv = document.getElementById('results');
+            if (resultsDiv) resultsDiv.classList.add('show');
+            
+            reporteData = {
+                totalLogro, nivelLogro: nivelLogro.nombre,
+                totalPoder, nivelPoder: nivelPoder.nombre,
+                totalAfiliacion, nivelAfiliacion: nivelAfiliacion.nombre,
+                perfil: perfil.titulo,
+                descripcion: perfil.descripcion,
+                recomendacion: perfil.recomendacion,
+                reflexiones: reflexiones
+            };
+            
+            window.scrollTo({ top: (document.getElementById('results')?.offsetTop || 0) - 20, behavior: 'smooth' });
+        };
+        
+        window.exportarReporte = function() {
+            if (!reporteData) {
+                alert("Primero genera tus resultados.");
+                return;
+            }
+            
+            const contenido = `PERFIL MOTIVACIONAL McCLELLAND
+${"=".repeat(50)}
 
-    <h3>Interpretación</h3>
-    <p><strong>Logro alto:</strong> Orientación a resultados y mejora continua.</p>
-    <p><strong>Poder alto:</strong> Necesidad de influir y liderar.</p>
-    <p><strong>Afiliación alta:</strong> Fuerte orientación a relaciones.</p>
+FECHA: ${new Date().toLocaleDateString()}
 
-    <h3>Reflexión clave</h3>
-    <p>No existe un perfil “correcto”. La efectividad depende de tu capacidad de adaptar tu motivación al contexto.</p>
-    `;
+RESULTADOS POR DIMENSIÓN:
+─────────────────────────
+🏆 LOGRO: ${reporteData.totalLogro}/15 - ${reporteData.nivelLogro}
+⚡ PODER: ${reporteData.totalPoder}/15 - ${reporteData.nivelPoder}
+🤝 AFILIACIÓN: ${reporteData.totalAfiliacion}/15 - ${reporteData.nivelAfiliacion}
 
-    document.getElementById("results").innerHTML = resultado;
-}
+PERFIL IDENTIFICADO:
+─────────────────────────
+${reporteData.perfil}
+${reporteData.descripcion}
+
+RECOMENDACIÓN:
+─────────────────────────
+${reporteData.recomendacion}
+
+${reporteData.reflexiones.length > 0 ? "REFLEXIONES SOBRE TUS RESPUESTAS:\n" + reporteData.reflexiones.join("\n") + "\n" : ""}
+${"=".repeat(50)}
+Basado en McClelland (1961) - Instrumento de autodiagnóstico
+            `;
+            
+            const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = `perfil_mcclelland_${new Date().toISOString().slice(0,10)}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        };
+        
+        window.reiniciarTest = function() {
+            for (let i = 1; i <= 9; i++) {
+                const seleccionado = document.querySelector(`input[name="q${i}"]:checked`);
+                if (seleccionado) seleccionado.checked = false;
+            }
+            const resultsDiv = document.getElementById('results');
+            if (resultsDiv) resultsDiv.classList.remove('show');
+            reporteData = null;
+            actualizarProgreso();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        
+        // Event listeners
+        for (let i = 1; i <= 9; i++) {
+            const radios = document.querySelectorAll(`input[name="q${i}"]`);
+            radios.forEach(radio => {
+                radio.addEventListener('change', actualizarProgreso);
+            });
+        }
+        
+        actualizarProgreso();
+    })();
 </script>
-
 </body>
 </html>
