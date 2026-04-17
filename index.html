@@ -2,639 +2,1110 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Liderazgo en Crisis · Instrumento McClelland</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Necesidades McClelland — GRO</title>
+  <meta name="description" content="Instrumento de autodiagnóstico basado en la Teoría de las Necesidades de McClelland. Identifica tu necesidad dominante: logro, poder o afiliación.">
+  <meta property="og:title" content="Perfil de Necesidades McClelland">
+  <meta property="og:description" content="Autodiagnóstico motivacional · Logro · Poder · Afiliación">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    /* RESET Y VARIABLES (sin cambios técnicos/pedagógicos) */
-    *,*::before,*::after{box-sizing:border-box}
-    :root{
-      --c-navy:#1a365d;--c-navy-mid:#2c5282;--c-amber:#b45309;--c-amber-bg:#fffbeb;--c-amber-border:#fcd34d;
-      --c-logro-bg:#eff6ff;--c-logro-border:#93c5fd;--c-logro-text:#1e40af;
-      --c-afil-bg:#f0fdf4;--c-afil-border:#86efac;--c-afil-text:#166534;
-      --c-poder-bg:#faf5ff;--c-poder-border:#c4b5fd;--c-poder-text:#6b21a8;
-      /* variables de sistema para consistencia */
-      --color-text-primary: #1f2937;
-      --color-text-secondary: #4b5563;
-      --color-text-tertiary: #6b7280;
-      --color-border-secondary: #e5e7eb;
-      --color-border-tertiary: #e2e8f0;
-      --color-background-primary: #ffffff;
-      --color-background-secondary: #f9fafb;
-      --color-background-info: #e0f2fe;
-      --color-text-info: #0f3b5c;
-      --color-background-danger: #fff5f5;
-      --color-border-danger: #fca5a5;
-      --color-text-danger: #991b1b;
-      --color-background-success: #f0fdf4;
-      --color-border-success: #86efac;
-      --color-text-success: #166534;
-      --border-radius-md: 10px;
-      --border-radius-lg: 20px;
-      --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    /* ═══════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════ */
+    :root {
+      --logro:       #1D9E75;
+      --logro-50:    #E1F5EE;
+      --logro-100:   #9FE1CB;
+      --logro-200:   #5DCAA5;
+      --logro-700:   #0F6E56;
+      --logro-900:   #04342C;
+
+      --poder:       #7F77DD;
+      --poder-50:    #EEEDFE;
+      --poder-100:   #CECBF6;
+      --poder-200:   #AFA9EC;
+      --poder-700:   #534AB7;
+      --poder-900:   #26215C;
+
+      --afil:        #D85A30;
+      --afil-50:     #FAECE7;
+      --afil-100:    #F5C4B3;
+      --afil-200:    #F0997B;
+      --afil-700:    #993C1D;
+      --afil-900:    #4A1B0C;
+
+      --n50:   #F7F6F3;
+      --n100:  #EEECEA;
+      --n200:  #DDDBD7;
+      --n300:  #CBC9C5;
+      --n400:  #6B6A67;
+      --n600:  #3D3C3A;
+      --n900:  #1C1B18;
+
+      --surface: #FFFFFF;
+      --bg:      #F4F3F0;
+
+      --r-lg: 14px;
+      --r-md: 9px;
+      --r-sm: 5px;
     }
-    body{
-      margin:0;
-      padding: 16px;               /* espacio en móviles, mejora el respiro */
-      background: #f8fafc;
-      font-family: var(--font-sans);
-      color: var(--color-text-primary);
-      line-height: 1.5;
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--n900);
+      min-height: 100vh;
       font-size: 15px;
-    }
-    /* contenedor principal para limitar ancho y centrar (mejor lectura) */
-    .main-container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    /* cards y elementos adaptados */
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
-    /* header */
-    .hdr{
-      background: var(--c-navy);
-      color:#fff;
-      padding: 20px 20px;          /* padding más compacto en móvil */
-      border-radius: var(--border-radius-lg);
-      margin-bottom: 12px;
-    }
-    .hdr h1{
-      margin:0 0 6px;
-      font-size: 1.5rem;           /* ligeramente mayor pero legible */
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-    .hdr .sub{
-      margin:0 0 12px;
-      font-size: 0.85rem;
-      opacity: 0.85;
-    }
-    .hdr p{
-      margin:0;
-      font-size: 0.85rem;
-      opacity: 0.9;
-      line-height: 1.5;
-    }
-    .kpi-row{
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 20px;
-    }
-    @media (max-width: 560px){
-      .kpi-row{
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-      .hdr{
-        padding: 18px 16px;
-      }
-    }
-    .kpi{
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 16px;
-      padding: 10px 6px;
-      text-align: center;
-      backdrop-filter: blur(2px);
-    }
-    .kpi .lbl{
-      font-size: 0.7rem;
-      opacity: 0.8;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-    .kpi .val{
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    /* top bar */
-    .topbar{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 18px;
-      background: var(--color-background-primary);
-      border-radius: 60px;
-      border: 0.5px solid var(--color-border-secondary);
-      margin-top: 6px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .pill{
-      font-size: 0.75rem;
-      font-weight: 500;
-      padding: 5px 14px;
-      border-radius: 40px;
-      white-space: nowrap;
-    }
-    @media (max-width: 480px){
-      .topbar{
-        justify-content: center;
-        border-radius: 28px;
-      }
-      .pill{
-        font-size: 0.7rem;
-        padding: 4px 12px;
-      }
-    }
-    .pill-phase{
-      background: var(--color-background-info);
-      color: var(--color-text-info);
-    }
-    .pill-sel{
-      background: var(--c-amber-bg);
-      color: var(--c-amber);
-      border: 0.5px solid var(--c-amber-border);
-    }
-
-    /* progress bar */
-    .prog-wrap{
-      height: 5px;
-      background: var(--color-border-tertiary);
-      border-radius: 10px;
-      margin: 12px 0 20px;
-      overflow: hidden;
-    }
-    .prog-fill{
-      height: 100%;
-      background: var(--c-amber);
-      width: 20%;
-      border-radius: 10px;
-      transition: width .3s ease;
-    }
-
-    /* GRID: responsive ajustada para móviles */
-    .cand-grid{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 28px;
-    }
-    @media (max-width: 640px){
-      .cand-grid{
-        gap: 16px;
-        grid-template-columns: 1fr;   /* una columna en móviles: lectura clara */
-      }
-    }
-    .cand-card{
-      background: var(--color-background-primary);
-      border: 1px solid var(--color-border-secondary);
-      border-radius: 28px;
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      outline: none;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-    }
-    .cand-card:hover{
-      border-color: var(--c-navy-mid);
-      transform: translateY(-2px);
-    }
-    .cand-card.sel{
-      border: 2px solid var(--c-amber);
-      background: var(--c-amber-bg);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 14px rgba(180,83,9,0.12);
-    }
-    .cand-card.done{
-      pointer-events: none;
-      opacity: 0.6;
-    }
-    .cand-card.done.sel{
-      opacity: 1;
-    }
-
-    .tag{
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 40px;
-      margin-bottom: 12px;
-      width: fit-content;
-    }
-    .tag-logro{ background: var(--c-logro-bg); color: var(--c-logro-text); }
-    .tag-afil{ background: var(--c-afil-bg); color: var(--c-afil-text); }
-    .tag-poder{ background: var(--c-poder-bg); color: var(--c-poder-text); }
-
-    .cand-name{
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--color-text-primary);
-      margin: 0 0 12px;
-      letter-spacing: -0.2px;
-    }
-    .sec-lbl{
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--c-amber);
-      margin: 0 0 6px;
-      display: block;
-    }
-    .card-body p{
-      font-size: 0.85rem;
-      margin: 0 0 12px;
-      color: var(--color-text-secondary);
-      line-height: 1.5;
-    }
-    .risk{
-      background: var(--color-background-danger);
-      border-left: 3px solid var(--color-border-danger);
-      border-radius: 14px;
-      padding: 10px 14px;
-      font-size: 0.8rem;
-      color: var(--color-text-danger);
-      margin-top: auto;
-      margin-bottom: 0;
-    }
-
-    /* botón principal */
-    .footer-act{
-      text-align: center;
-      margin: 16px 0 24px;
-    }
-    .btn-primary{
-      background: var(--c-amber);
-      color: white;
-      border: none;
-      padding: 14px 36px;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 60px;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      width: auto;
-      min-width: 220px;
-    }
-    .btn-primary:hover:not(:disabled){
-      background: #92400e;
-      transform: translateY(-2px);
-    }
-    .btn-primary:disabled{
-      background: #cbd5e1;
-      color: #475569;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .btn-sm{
-      padding: 10px 28px;
-      font-size: 0.85rem;
-    }
-    @media (max-width: 480px){
-      .btn-primary{
-        width: 100%;
-        padding: 14px 20px;
-      }
-    }
-
-    /* feedback panel */
-    #feedback{
-      display: none;
-      margin-top: 16px;
-      padding: 24px 20px;
-      border-radius: 32px;
-      border: 0.5px solid var(--color-border-secondary);
-      animation: fadeUp 0.4s ease;
-      background: white;
-    }
-    @keyframes fadeUp{
-      from{opacity:0;transform:translateY(20px);}
-      to{opacity:1;transform:translateY(0);}
-    }
-    .fb-logro{ background: var(--c-logro-bg); border-color: var(--c-logro-border); }
-    .fb-afil{ background: var(--c-afil-bg); border-color: var(--c-afil-border); }
-    .fb-poder{ background: var(--c-poder-bg); border-color: var(--c-poder-border); }
-
-    .fb-badge{
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 4px 14px;
-      border-radius: 40px;
-      margin-bottom: 16px;
-    }
-    .fb-badge.logro{ background: var(--c-logro-bg); color: var(--c-logro-text); border: 0.5px solid var(--c-logro-border);}
-    .fb-badge.afil{ background: var(--c-afil-bg); color: var(--c-afil-text); border: 0.5px solid var(--c-afil-border);}
-    .fb-badge.poder{ background: var(--c-poder-bg); color: var(--c-poder-text); border: 0.5px solid var(--c-poder-border);}
-
-    #feedback h2{
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin: 0 0 12px;
-      color: var(--color-text-primary);
-    }
-    #feedback p.fb-text{
-      font-size: 0.9rem;
       line-height: 1.6;
-      color: var(--color-text-primary);
-      margin-bottom: 18px;
-    }
-    .tradeoff{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 20px 0;
-    }
-    @media (max-width: 560px){
-      .tradeoff{
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-    }
-    .t-box{
-      padding: 16px;
-      border-radius: 24px;
-      font-size: 0.85rem;
-      background: rgba(255,255,255,0.7);
-    }
-    .t-box.pro{ background: #f0fdf4; border: 0.5px solid #bbf7d0; }
-    .t-box.con{ background: #fff5f5; border: 0.5px solid #fecaca; }
-    .t-box strong{
-      display: block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-    .t-box.pro strong{ color: #15803d; }
-    .t-box.con strong{ color: #b91c1c; }
-    .t-box ul{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--color-text-secondary);
-    }
-    .t-box li{
-      margin-bottom: 6px;
-      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .reflect{
-      margin-top: 22px;
-      background: rgba(255,255,240,0.7);
-      padding: 18px;
-      border-radius: 28px;
+    /* ══ TOPBAR ══ */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--n200);
+      padding: 0 28px;
+      height: 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 200;
     }
-    .reflect strong{
-      color: var(--color-text-primary);
-      font-weight: 700;
-      font-size: 0.85rem;
-    }
-    .reflect ul{
-      margin: 10px 0 0;
-      padding-left: 20px;
-      color: var(--color-text-secondary);
-      font-size: 0.85rem;
-    }
-    .reflect li{
-      margin-bottom: 8px;
-    }
-    .fb-actions{
-      text-align: center;
-      margin-top: 26px;
-    }
+    .topbar-left { display: flex; align-items: center; gap: 14px; }
+    .course-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--n600); }
+    .vsep { width: 1px; height: 16px; background: var(--n200); }
+    .topbar-title { font-size: 13px; font-weight: 500; color: var(--n600); }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .progress-wrap { display: flex; align-items: center; gap: 9px; }
+    .progress-track { width: 88px; height: 3px; background: var(--n200); border-radius: 2px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: var(--n900); border-radius: 2px; transition: width 0.3s ease; }
+    .progress-txt { font-size: 11px; font-weight: 500; color: var(--n600); min-width: 30px; text-align: right; }
+    .phase-pill { font-size: 10px; font-weight: 500; padding: 4px 12px; border-radius: 20px; background: var(--n100); color: var(--n600); border: 1px solid var(--n200); }
 
-    /* créditos */
-    .credits{
-      margin-top: 48px;
-      padding-top: 20px;
-      border-top: 0.5px solid var(--color-border-tertiary);
-      text-align: center;
-      font-size: 0.7rem;
-      color: var(--color-text-tertiary);
-      line-height: 1.6;
+    /* ══ LAYOUT ══ */
+    .main { max-width: 760px; margin: 0 auto; padding: 56px 24px 96px; }
+
+    /* ══ HERO ══ */
+    .hero { margin-bottom: 48px; }
+    .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--n600); margin-bottom: 16px; }
+    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(32px, 5.5vw, 46px); font-weight: 400; line-height: 1.1; color: var(--n900); margin-bottom: 10px; }
+    .hero h1 em { font-style: italic; color: var(--n600); }
+    .dim-rule { display: flex; margin: 22px 0; height: 3px; width: 96px; border-radius: 2px; overflow: hidden; }
+    .dim-rule span { flex: 1; }
+    .dr-logro { background: var(--logro); }
+    .dr-poder { background: var(--poder); }
+    .dr-afil  { background: var(--afil); }
+    .hero-desc { font-size: 15px; color: var(--n600); line-height: 1.78; max-width: 560px; }
+    .hero-meta { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; }
+    .meta-chip { font-size: 11px; font-weight: 500; color: var(--n600); background: var(--surface); border: 1px solid var(--n200); padding: 5px 13px; border-radius: 20px; }
+
+    /* ══ INSTRUCCIÓN ══ */
+    .instruccion { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--n200); border-radius: var(--r-lg); padding: 18px 22px; margin-bottom: 40px; }
+    .instr-icon { flex-shrink: 0; margin-top: 2px; color: var(--n600); }
+    .instruccion p { font-size: 14px; color: var(--n600); line-height: 1.68; }
+    .instruccion strong { color: var(--n900); font-weight: 600; }
+
+    /* ══ DIMENSIÓN ══ */
+    .dimension { margin-bottom: 20px; }
+    .dim-header { display: flex; align-items: center; gap: 11px; padding: 14px 20px; background: var(--surface); border: 1px solid var(--n200); border-bottom: none; border-radius: var(--r-lg) var(--r-lg) 0 0; }
+    .dim-stripe { width: 3px; height: 20px; border-radius: 2px; flex-shrink: 0; }
+    .ds-logro { background: var(--logro); }
+    .ds-poder { background: var(--poder); }
+    .ds-afil  { background: var(--afil); }
+    .dim-name { font-size: 14px; font-weight: 600; color: var(--n900); flex: 1; }
+    .dim-meta { display: flex; align-items: center; gap: 8px; }
+    .dim-count { font-size: 11px; font-weight: 500; color: var(--n600); }
+    .dim-code { font-size: 10px; font-weight: 600; padding: 2px 9px; border-radius: var(--r-sm); background: var(--n100); color: var(--n600); border: 1px solid var(--n200); }
+    .dim-items { background: var(--surface); border: 1px solid var(--n200); border-radius: 0 0 var(--r-lg) var(--r-lg); }
+
+    /* ══ ÍTEM ══ */
+    .item { padding: 22px 22px 20px; border-bottom: 1px solid var(--n100); transition: background 0.16s; }
+    .item:last-child { border-bottom: none; }
+    .item.done { background: #FAFAF8; }
+    .item-top { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 18px; }
+    .item-num { font-size: 11px; font-weight: 600; color: var(--n600); letter-spacing: 0.05em; padding-top: 1px; flex-shrink: 0; min-width: 44px; }
+    .item-body { flex: 1; }
+    .situacion { display: block; background: var(--n50); border-left: 2px solid var(--n400); padding: 10px 14px; margin-bottom: 10px; font-size: 13px; color: var(--n600); line-height: 1.65; border-radius: 0 var(--r-sm) var(--r-sm) 0; font-style: italic; }
+    .pregunta { display: block; font-size: 14px; font-weight: 500; color: var(--n900); line-height: 1.6; }
+    .reverso-badge { display: inline-block; background: var(--n200); font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 10px; margin-left: 8px; color: var(--n600); vertical-align: middle; letter-spacing: 0.04em; }
+
+    /* escala */
+    .scale-wrap { display: flex; align-items: center; gap: 10px; }
+    .scale-lbl { font-size: 10px; font-weight: 500; color: var(--n600); white-space: nowrap; min-width: 58px; line-height: 1.4; }
+    .scale-lbl.r { text-align: right; }
+    .scale-btns { display: flex; gap: 5px; flex: 1; }
+    .bv { flex: 1; height: 38px; border: 1px solid var(--n300); border-radius: var(--r-md); background: var(--bg); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--n600); cursor: pointer; transition: background 0.1s, border-color 0.1s, color 0.1s, transform 0.08s; }
+    .bv:hover { border-color: var(--n400); color: var(--n900); background: var(--surface); }
+    .bv:active { transform: scale(0.94); }
+    .bv.sel-logro { background: var(--logro-50); border-color: var(--logro-200); color: var(--logro-900); }
+    .bv.sel-poder { background: var(--poder-50); border-color: var(--poder-200); color: var(--poder-900); }
+    .bv.sel-afil  { background: var(--afil-50);  border-color: var(--afil-200);  color: var(--afil-900); }
+
+    /* ══ AVISO + BOTÓN ══ */
+    .aviso { font-size: 13px; font-weight: 500; color: #791F1F; padding: 11px 16px; margin-top: 14px; background: #FCEBEB; border: 1px solid #F09595; border-radius: var(--r-md); display: none; }
+    .aviso.show { display: block; }
+    .btn-calcular { display: block; width: 100%; padding: 15px; margin-top: 22px; background: var(--n900); color: var(--bg); border: none; border-radius: var(--r-lg); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; letter-spacing: 0.01em; transition: opacity 0.14s, transform 0.08s; }
+    .btn-calcular:hover { opacity: 0.85; }
+    .btn-calcular:active { transform: scale(0.995); }
+
+    /* ══ RESULTADOS ══ */
+    .resultados { margin-top: 44px; display: none; }
+    .resultados.visible { display: block; animation: slideUp 0.42s cubic-bezier(0.22, 1, 0.36, 1); }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .res-bloque { background: var(--surface); border: 1px solid var(--n200); border-radius: var(--r-lg); overflow: hidden; margin-bottom: 12px; }
+
+    .res-head { padding: 22px 26px 18px; border-bottom: 1px solid var(--n100); }
+    .res-head h2 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 400; color: var(--n900); margin-bottom: 3px; }
+    .res-head p { font-size: 12px; color: var(--n600); }
+
+    /* scores */
+    .scores-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); border-bottom: 1px solid var(--n100); }
+    .score-cell { padding: 18px 16px; text-align: center; border-right: 1px solid var(--n100); }
+    .score-cell:last-child { border-right: none; }
+    .sc-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .sc-logro .sc-label { color: var(--logro-700); }
+    .sc-poder .sc-label { color: var(--poder-700); }
+    .sc-afil  .sc-label { color: var(--afil-700); }
+    .sc-val { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 300; line-height: 1; margin-bottom: 4px; }
+    .sc-logro .sc-val { color: var(--logro-900); }
+    .sc-poder .sc-val { color: var(--poder-900); }
+    .sc-afil  .sc-val { color: var(--afil-900); }
+    .sc-of { font-size: 11px; }
+    .sc-logro .sc-of { color: var(--logro-700); }
+    .sc-poder .sc-of { color: var(--poder-700); }
+    .sc-afil  .sc-of { color: var(--afil-700); }
+    .nivel-pill { display: inline-block; margin-top: 7px; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; border: 1px solid; }
+    .niv-muy-alto { background:#E1F5EE; color:#085041; border-color:#5DCAA5; }
+    .niv-alto     { background:#EAF3DE; color:#27500A; border-color:#97C459; }
+    .niv-mod-alto { background:#FAEEDA; color:#633806; border-color:#EF9F27; }
+    .niv-moderado { background:#FAEEDA; color:#633806; border-color:#FAC775; }
+    .niv-mod-bajo { background:#FAECE7; color:#712B13; border-color:#F0997B; }
+    .niv-bajo     { background:#FCEBEB; color:#791F1F; border-color:#F09595; }
+
+    /* barras */
+    .barras-section { padding: 22px 26px; border-bottom: 1px solid var(--n100); }
+    .bar-row { display: grid; grid-template-columns: 108px 1fr 56px; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .bar-row:last-child { margin-bottom: 0; }
+    .bar-lbl { font-size: 13px; font-weight: 500; color: var(--n600); }
+    .bar-track { height: 9px; background: var(--n100); border-radius: 5px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 5px; width: 0%; transition: width 0.75s cubic-bezier(0.4,0,0.2,1); }
+    .bf-logro { background: var(--logro); }
+    .bf-poder { background: var(--poder); }
+    .bf-afil  { background: var(--afil); }
+    .bar-score { font-size: 13px; font-weight: 600; color: var(--n900); text-align: right; }
+
+    /* alertas */
+    .alerta-bloque { display: none; margin: 0 26px 16px; }
+    .alerta-bloque.show { display: block; }
+    .alerta-sesgo {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 13px 16px;
+      background: #FFF8E1;
+      border: 1px solid #F9A825;
+      border-radius: var(--r-md);
     }
-    /* Ajuste para toques en móviles */
-    .cand-card:active{
-      transform: scale(0.99);
+    .alerta-sesgo-icon { flex-shrink: 0; margin-top: 1px; color: #F57F17; }
+    .alerta-sesgo-body { flex: 1; }
+    .alerta-sesgo-titulo { font-size: 13px; font-weight: 600; color: #4E3400; margin-bottom: 4px; }
+    .alerta-sesgo-desc { font-size: 12px; color: #5D3E00; line-height: 1.6; }
+
+    .alerta-empate {
+      padding: 11px 16px;
+      background: #FAEEDA;
+      border: 1px solid #EF9F27;
+      border-radius: var(--r-md);
+      font-size: 13px; color: #633806;
+    }
+    .alerta-empate strong { font-weight: 600; }
+
+    /* perfil */
+    .perfil-section { padding: 20px 26px; border-bottom: 1px solid var(--n100); }
+    .perfil-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--n600); margin-bottom: 12px; }
+    .perfil-card { padding: 20px 22px; border-radius: var(--r-md); border: 1px solid; }
+    .pc-logro     { background: var(--logro-50); border-color: var(--logro-200); }
+    .pc-poder     { background: var(--poder-50); border-color: var(--poder-200); }
+    .pc-afil      { background: var(--afil-50);  border-color: var(--afil-200); }
+    .pc-mixto     { background: #F5F4FF; border-color: var(--poder-200); }
+    .pc-equilibrado { background: var(--n50); border-color: var(--n200); }
+    .perfil-titulo { font-size: 15px; font-weight: 600; margin-bottom: 10px; line-height: 1.4; }
+    .pc-logro .perfil-titulo     { color: var(--logro-900); }
+    .pc-poder .perfil-titulo     { color: var(--poder-900); }
+    .pc-afil  .perfil-titulo     { color: var(--afil-900); }
+    .pc-mixto .perfil-titulo     { color: var(--poder-900); }
+    .pc-equilibrado .perfil-titulo { color: var(--n900); }
+    .perfil-desc { font-size: 14px; line-height: 1.75; margin-bottom: 16px; }
+    .pc-logro .perfil-desc     { color: var(--logro-700); }
+    .pc-poder .perfil-desc     { color: var(--poder-700); }
+    .pc-afil  .perfil-desc     { color: var(--afil-700); }
+    .pc-mixto .perfil-desc     { color: var(--poder-700); }
+    .pc-equilibrado .perfil-desc { color: var(--n600); }
+    .perfil-divider { height: 1px; background: rgba(0,0,0,0.08); margin-bottom: 16px; }
+    .rec-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; opacity: 0.55; display: block; margin-bottom: 8px; }
+    .perfil-rec { font-size: 13px; line-height: 1.75; }
+    .pc-logro .perfil-rec     { color: var(--logro-700); }
+    .pc-poder .perfil-rec     { color: var(--poder-700); }
+    .pc-afil  .perfil-rec     { color: var(--afil-700); }
+    .pc-mixto .perfil-rec     { color: var(--poder-700); }
+    .pc-equilibrado .perfil-rec { color: var(--n600); }
+
+    /* nota metodológica */
+    .nota-section { padding: 18px 26px; border-bottom: 1px solid var(--n100); }
+    .nota-content { display: flex; gap: 12px; align-items: flex-start; background: var(--n50); border: 1px solid var(--n200); border-radius: var(--r-md); padding: 14px 16px; }
+    .nota-icon { flex-shrink: 0; margin-top: 1px; color: var(--n600); }
+    .nota-content p { font-size: 13px; color: var(--n600); line-height: 1.7; }
+    .nota-content strong { color: var(--n900); font-weight: 600; }
+
+    /* reflexión */
+    .reflexion-section { padding: 20px 26px; border-bottom: 1px solid var(--n100); }
+    .ref-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--n600); margin-bottom: 12px; }
+    .reflexion-q { font-family: 'Fraunces', serif; font-style: italic; font-size: 19px; font-weight: 400; color: var(--n900); line-height: 1.45; }
+
+    /* referencia */
+    .ref-section { padding: 16px 26px; border-bottom: 1px solid var(--n100); }
+    .ref-section p { font-size: 12px; color: var(--n600); line-height: 1.65; }
+    .ref-section em { font-style: italic; }
+
+    /* acciones */
+    .acciones { padding: 20px 26px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-exportar { flex: 1; min-width: 140px; padding: 12px 18px; background: var(--n900); color: var(--bg); border: none; border-radius: var(--r-md); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.14s; }
+    .btn-exportar:hover { opacity: 0.82; }
+    .btn-reiniciar { flex: 1; min-width: 140px; padding: 12px 18px; background: transparent; color: var(--n600); border: 1px solid var(--n300); border-radius: var(--r-md); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.12s, color 0.12s; }
+    .btn-reiniciar:hover { background: var(--n100); color: var(--n900); }
+
+    /* footer */
+    .footer { text-align: center; margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--n200); font-size: 12px; color: var(--n600); line-height: 1.7; }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 560px) {
+      .topbar { padding: 0 16px; }
+      .topbar-title, .vsep { display: none; }
+      .main { padding: 32px 16px 72px; }
+      .scale-lbl { display: none; }
+      .bar-row { grid-template-columns: 90px 1fr 46px; gap: 8px; }
+      .acciones { flex-direction: column; }
+      .btn-exportar, .btn-reiniciar { min-width: unset; }
+      .progress-track { width: 58px; }
+      .situacion { font-size: 12px; }
+      .pregunta { font-size: 13px; }
+      .alerta-bloque { margin: 0 16px 14px; }
     }
   </style>
 </head>
 <body>
-<div class="main-container">
-  <h2 class="sr-only">Instrumento formativo: selección de liderazgo basado en la teoría de motivación de McClelland. Sucursal Sur en crisis.</h2>
 
-  <div class="hdr">
-    <h1>Crisis en Sucursal Sur</h1>
-    <p class="sub">Instrumento de decisión estratégica — Liderazgo y motivación</p>
-    <p>La sucursal está en un punto de inflexión crítico. Como Gerente Regional, tu decisión debe considerar tanto el cumplimiento de los objetivos financieros como la sostenibilidad del capital humano. Analiza cada candidato y elige al más adecuado para liderar la recuperación.</p>
-    <div class="kpi-row">
-      <div class="kpi"><div class="lbl">Caída en ventas</div><div class="val">−30%</div></div>
-      <div class="kpi"><div class="lbl">Clima laboral</div><div class="val">Tóxico</div></div>
-      <div class="kpi"><div class="lbl">Tu rol</div><div class="val">Gerente Regional</div></div>
-      <div class="kpi"><div class="lbl">Marco teórico</div><div class="val">McClelland</div></div>
+<header class="topbar">
+  <div class="topbar-left">
+    <span class="course-tag">GRO</span>
+    <div class="vsep"></div>
+    <span class="topbar-title">Gestión de las Relaciones en las Organizaciones</span>
+  </div>
+  <div class="topbar-right">
+    <div class="progress-wrap"
+         role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="18"
+         aria-label="Progreso: ítems respondidos"
+         id="progressBar">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-txt" id="progressTxt">0 / 18</span>
+    </div>
+    <span class="phase-pill">Fase 1 · Individual</span>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="eyebrow">Motivación humana · Sesión McClelland</p>
+    <h1>Autodiagnóstico de<br><em>necesidades motivacionales</em></h1>
+    <div class="dim-rule"><span class="dr-logro"></span><span class="dr-poder"></span><span class="dr-afil"></span></div>
+    <p class="hero-desc">Identifica cuál de las tres necesidades motivacionales de McClelland predomina en tu forma de relacionarte con el trabajo y las organizaciones.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">18 ítems situacionales</span>
+      <span class="meta-chip">3 dimensiones · 6 ítems c/u</span>
+      <span class="meta-chip">12 – 15 min</span>
+      <span class="meta-chip">McClelland, 1961</span>
+      <span class="meta-chip">Con ítems de control (R)</span>
     </div>
   </div>
 
-  <div class="topbar">
-    <span class="pill pill-phase" id="phase-lbl" aria-live="polite">Fase 1 de 2 — Selección de candidato</span>
-    <span class="pill pill-sel" id="sel-lbl" aria-live="polite">Ningún candidato seleccionado</span>
+  <!-- INSTRUCCIÓN -->
+  <div class="instruccion" role="note">
+    <svg class="instr-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+      <circle cx="9" cy="9" r="7.5"/>
+      <line x1="9" y1="8" x2="9" y2="13"/>
+      <circle cx="9" cy="5.5" r="0.8" fill="currentColor" stroke="none"/>
+    </svg>
+    <p><strong>Instrucción:</strong> Cada ítem presenta una situación concreta y luego una afirmación. Selecciona un valor del <strong>1</strong> (totalmente en desacuerdo) al <strong>5</strong> (totalmente de acuerdo) según qué tan fielmente describe tu comportamiento real. No hay respuestas correctas ni incorrectas. <strong>Los ítems marcados (R)</strong> están redactados en dirección inversa: respóndelos igual de sinceramente.</p>
   </div>
-  <div class="prog-wrap"><div class="prog-fill" id="prog" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div></div>
 
-  <div class="cand-grid" id="grid" role="radiogroup" aria-label="Candidatos a seleccionar">
+  <!-- ═══ DIMENSIÓN A: LOGRO (6 ítems) ═══ -->
+  <div class="dimension">
+    <div class="dim-header">
+      <div class="dim-stripe ds-logro"></div>
+      <span class="dim-name">A — Necesidad de Logro</span>
+      <div class="dim-meta"><span class="dim-count">6 ítems</span><span class="dim-code">nAch</span></div>
+    </div>
+    <div class="dim-items">
 
-    <div class="cand-card" id="cA" role="radio" tabindex="0" aria-checked="false"
-         aria-label="Andrés: el impulsor técnico — motivación de logro"
-         data-id="A" onclick="pick('A')" onkeydown="keyPick(event,'A')">
-      <span class="tag tag-logro">Motivación de logro</span>
-      <p class="cand-name">Andrés: el impulsor técnico</p>
-      <div class="card-body">
-        <span class="sec-lbl">Perfil</span>
-        <p>Extraordinario "hacedor". Su éxito radica en la autoexigencia extrema y el perfeccionismo operativo. Lidera con el ejemplo directo.</p>
-        <span class="sec-lbl">Propuesta</span>
-        <p>"La crisis se resuelve con el ejemplo activo. Tomaré la cartera corporativa más crítica. El que quiera aprender, que me siga el ritmo."</p>
-        <span class="sec-lbl">Posible riesgo</span>
-        <p class="risk">Microgestión: centralizar decisiones, revisar cada detalle y evitar delegar. Al absorber tareas complejas personalmente, puede anular el desarrollo de competencias del equipo.</p>
+      <div class="item" id="item-logro-0">
+        <div class="item-top"><span class="item-num">Ítem 1</span><div class="item-body">
+          <span class="situacion">Terminas una tarea y el resultado fue bueno. Tu reacción natural es revisar qué podrías haber hecho mejor, aunque el resultado haya sido exitoso.</span>
+          <span class="pregunta">Me reconozco en esa forma de reaccionar.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="logro-0" role="group" aria-label="Escala ítem 1"></div><span class="scale-lbl r">De acuerdo</span></div>
       </div>
-    </div>
 
-    <div class="cand-card" id="cB" role="radio" tabindex="0" aria-checked="false"
-         aria-label="Beatriz: la cohesionadora emocional — motivación de afiliación"
-         data-id="B" onclick="pick('B')" onkeydown="keyPick(event,'B')">
-      <span class="tag tag-afil">Motivación de afiliación</span>
-      <p class="cand-name">Beatriz: la cohesionadora emocional</p>
-      <div class="card-body">
-        <span class="sec-lbl">Perfil</span>
-        <p>Ve a la organización como un tejido social. Su fortaleza es la inteligencia emocional y la conformación y mantenimiento de equipos de trabajo.</p>
-        <span class="sec-lbl">Propuesta</span>
-        <p>"Un equipo fragmentado no puede vender. Mi prioridad es restaurar la confianza y la seguridad de los miembros del equipo ante la Regional."</p>
-        <span class="sec-lbl">Posible riesgo</span>
-        <p class="risk">Entropía por complacencia: la aversión al conflicto puede generar puntos ciegos operativos y desmotivar al personal de alto desempeño si no hay exigencia sostenida.</p>
+      <div class="item" id="item-logro-1">
+        <div class="item-top"><span class="item-num">Ítem 2</span><div class="item-body">
+          <span class="situacion">Te ofrecen dos proyectos: uno rutinario con éxito garantizado, y otro desafiante donde el resultado depende en un 70% de tu esfuerzo y habilidad, con posibilidad real de fracaso.</span>
+          <span class="pregunta">Elegiría el segundo proyecto sin dudarlo.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="logro-1" role="group" aria-label="Escala ítem 2"></div><span class="scale-lbl r">De acuerdo</span></div>
       </div>
-    </div>
 
-    <div class="cand-card" id="cC" role="radio" tabindex="0" aria-checked="false"
-         aria-label="Lucía: la arquitecta de poder — motivación de poder"
-         data-id="C" onclick="pick('C')" onkeydown="keyPick(event,'C')">
-      <span class="tag tag-poder">Motivación de poder</span>
-      <p class="cand-name">Lucía: la arquitecta de poder</p>
-      <div class="card-body">
-        <span class="sec-lbl">Perfil</span>
-        <p>Gestora de recursos y estructuras. Entiende el liderazgo como el ejercicio de influencia para remover obstáculos sistémicos.</p>
-        <span class="sec-lbl">Propuesta</span>
-        <p>"La sucursal ha perdido relevancia en la corporación. Requiero facultades para reestructurar y negociar presupuesto, cambios en el equipo y revisión de objetivos financieros."</p>
-        <span class="sec-lbl">Posible riesgo</span>
-        <p class="risk">Poder personalizado: riesgo de crear redes de lealtad personal y acallar voces disidentes, dejando de lado el fortalecimiento de la cultura corporativa.</p>
+      <div class="item" id="item-logro-2">
+        <div class="item-top"><span class="item-num">Ítem 3</span><div class="item-body">
+          <span class="situacion">Al cerrar un ciclo de trabajo o un semestre, dedicas tiempo a comparar tus resultados con los anteriores para identificar con precisión en qué mejoraste y qué falta por desarrollar.</span>
+          <span class="pregunta">Eso describe con exactitud cómo me comporto.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="logro-2" role="group" aria-label="Escala ítem 3"></div><span class="scale-lbl r">De acuerdo</span></div>
       </div>
+
+      <div class="item" id="item-logro-3">
+        <div class="item-top"><span class="item-num">Ítem 4</span><div class="item-body">
+          <span class="situacion">Tienes un objetivo claro —profesional, académico o personal. Para saber si avanzas, estableces indicadores concretos que te permiten medir tu progreso paso a paso.</span>
+          <span class="pregunta">Cuando tengo un objetivo claro, prefiero medir mi avance con indicadores concretos.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="logro-3" role="group" aria-label="Escala ítem 4"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-logro-4">
+        <div class="item-top"><span class="item-num">Ítem 5</span><div class="item-body">
+          <span class="situacion">Te asignan una tarea. El resultado dependerá directamente de tu esfuerzo y habilidad, no de la suerte ni del desempeño de otros.</span>
+          <span class="pregunta">Disfruto más cuando el éxito o fracaso depende claramente de mí.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="logro-4" role="group" aria-label="Escala ítem 5"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-logro-5">
+        <div class="item-top"><span class="item-num">Ítem 6 <span class="reverso-badge">R</span></span><div class="item-body">
+          <span class="situacion">Has completado un proyecto. Tu supervisor dice que el resultado es aceptable y que no es necesario ajustar nada más.</span>
+          <span class="pregunta">Me siento completamente satisfecho con un resultado "aceptable" sin necesidad de seguir mejorándolo.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="logro-5" role="group" aria-label="Escala ítem 6 inverso"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
     </div>
   </div>
 
-  <div class="footer-act">
-    <button class="btn-primary" id="btn-confirm" disabled aria-disabled="true" onclick="confirm_pick()">
-      Confirmar decisión de gestión
-    </button>
+  <!-- ═══ DIMENSIÓN B: PODER (6 ítems) ═══ -->
+  <div class="dimension">
+    <div class="dim-header">
+      <div class="dim-stripe ds-poder"></div>
+      <span class="dim-name">B — Necesidad de Poder</span>
+      <div class="dim-meta"><span class="dim-count">6 ítems</span><span class="dim-code">nPow</span></div>
+    </div>
+    <div class="dim-items">
+
+      <div class="item" id="item-poder-0">
+        <div class="item-top"><span class="item-num">Ítem 7</span><div class="item-body">
+          <span class="situacion">Tu equipo lleva dos reuniones sin llegar a una decisión. La discusión se dispersa, el tiempo se acaba y nadie toma la iniciativa de conducir hacia una conclusión.</span>
+          <span class="pregunta">En esa situación, asumiría naturalmente el rol de orientar al grupo, aunque genere algo de fricción.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="poder-0" role="group" aria-label="Escala ítem 7"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-poder-1">
+        <div class="item-top"><span class="item-num">Ítem 8</span><div class="item-body">
+          <span class="situacion">Se toma una decisión importante que te afecta directamente sin consultarte. El resultado no es óptimo y tú tenías información relevante que no se consideró.</span>
+          <span class="pregunta">Buscaría activamente revertir o ajustar esa decisión, incluso si eso genera tensión con quienes la tomaron.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="poder-1" role="group" aria-label="Escala ítem 8"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-poder-2">
+        <div class="item-top"><span class="item-num">Ítem 9</span><div class="item-body">
+          <span class="situacion">En proyectos grupales con posiciones distintas, dedicas energía a alinear al equipo hacia un objetivo común, más allá de lo estrictamente necesario para avanzar.</span>
+          <span class="pregunta">Eso refleja algo que realmente disfruto hacer.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="poder-2" role="group" aria-label="Escala ítem 9"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-poder-3">
+        <div class="item-top"><span class="item-num">Ítem 10</span><div class="item-body">
+          <span class="situacion">Te motiva más liderar un proyecto que ser el mejor ejecutor individual del mismo. La posibilidad de influir en el rumbo te genera energía.</span>
+          <span class="pregunta">Disfruto más influyendo en la dirección que ejecutando tareas individuales.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="poder-3" role="group" aria-label="Escala ítem 10"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-poder-4">
+        <div class="item-top"><span class="item-num">Ítem 11</span><div class="item-body">
+          <span class="situacion">Presentas una idea en una reunión. Los demás la escuchan, pero no termina de adoptarse. Quieres que sea realmente asumida por el equipo.</span>
+          <span class="pregunta">Me esfuerzo activamente para que los demás adopten mis ideas y las hagan suyas.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="poder-4" role="group" aria-label="Escala ítem 11"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-poder-5">
+        <div class="item-top"><span class="item-num">Ítem 12 <span class="reverso-badge">R</span></span><div class="item-body">
+          <span class="situacion">En una reunión importante, el grupo espera que alguien tome la palabra para organizar la discusión y proponer una ruta de decisión.</span>
+          <span class="pregunta">Prefiero esperar a que otra persona asuma ese rol antes de hacerlo yo.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="poder-5" role="group" aria-label="Escala ítem 12 inverso"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+    </div>
   </div>
 
-  <div id="feedback" role="region" aria-label="Retroalimentación formativa" aria-live="polite"></div>
+  <!-- ═══ DIMENSIÓN C: AFILIACIÓN (6 ítems) ═══ -->
+  <div class="dimension">
+    <div class="dim-header">
+      <div class="dim-stripe ds-afil"></div>
+      <span class="dim-name">C — Necesidad de Afiliación</span>
+      <div class="dim-meta"><span class="dim-count">6 ítems</span><span class="dim-code">nAff</span></div>
+    </div>
+    <div class="dim-items">
 
-  <div class="credits">
-    Elaborado por <strong>Cecilia Carrasco Rivera</strong><br>
-    Curso: <strong>Gestión de las Relaciones en las Organizaciones</strong><br>
-    Instrumento formativo — Nivel P5 (2026)
+      <div class="item" id="item-afil-0">
+        <div class="item-top"><span class="item-num">Ítem 13</span><div class="item-body">
+          <span class="situacion">Entras a un equipo nuevo. Antes de enfocarte en los resultados, dedicas tiempo y energía a conocer a las personas, entender su dinámica y construir confianza.</span>
+          <span class="pregunta">Así es como genuinamente me comporto en esas situaciones.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="afil-0" role="group" aria-label="Escala ítem 13"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-afil-1">
+        <div class="item-top"><span class="item-num">Ítem 14</span><div class="item-body">
+          <span class="situacion">Un compañero comete un error que afecta los resultados del grupo. Tienes claro qué feedback necesita escuchar, pero darlo implicaría una conversación incómoda que podría tensar la relación.</span>
+          <span class="pregunta">En ese caso, tiendo a postergar el feedback o suavizarlo para preservar el vínculo.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="afil-1" role="group" aria-label="Escala ítem 14"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-afil-2">
+        <div class="item-top"><span class="item-num">Ítem 15</span><div class="item-body">
+          <span class="situacion">Te excluyen de una reunión importante o de un grupo de trabajo al que sentías que pertenecías. El impacto en tus resultados es mínimo, pero la situación te afecta significativamente.</span>
+          <span class="pregunta">Reconozco que eso me afecta más allá de lo meramente operativo.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="afil-2" role="group" aria-label="Escala ítem 15"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-afil-3">
+        <div class="item-top"><span class="item-num">Ítem 16</span><div class="item-body">
+          <span class="situacion">Al evaluar tu satisfacción laboral, la calidad de tus relaciones con colegas pesa más que los logros individuales que hayas alcanzado.</span>
+          <span class="pregunta">Para mí, la calidad de las relaciones laborales importa más que los logros individuales.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="afil-3" role="group" aria-label="Escala ítem 16"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-afil-4">
+        <div class="item-top"><span class="item-num">Ítem 17</span><div class="item-body">
+          <span class="situacion">En tu equipo, sueles organizar actividades informales —almuerzos, celebraciones, pausas grupales— para fortalecer la cohesión y el buen ambiente.</span>
+          <span class="pregunta">Disfruto organizar espacios que fortalecen la cohesión del equipo.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="afil-4" role="group" aria-label="Escala ítem 17"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+      <div class="item" id="item-afil-5">
+        <div class="item-top"><span class="item-num">Ítem 18 <span class="reverso-badge">R</span></span><div class="item-body">
+          <span class="situacion">Tu equipo atraviesa un conflicto interno que afecta el clima y los resultados. Hay tensión entre dos personas y nadie ha puesto el tema sobre la mesa.</span>
+          <span class="pregunta">Prefiero no involucrarme en ese conflicto y esperar a que alguien más lo resuelva.</span>
+        </div></div>
+        <div class="scale-wrap"><span class="scale-lbl">En desacuerdo</span><div class="scale-btns" id="afil-5" role="group" aria-label="Escala ítem 18 inverso"></div><span class="scale-lbl r">De acuerdo</span></div>
+      </div>
+
+    </div>
   </div>
-</div>
 
+  <p class="aviso" id="aviso" role="alert">Completa todos los 18 ítems antes de ver tu perfil.</p>
+  <button class="btn-calcular" id="btnCalc">Ver mi perfil de necesidades</button>
+
+  <!-- ══ RESULTADOS ══ -->
+  <section class="resultados" id="resultados" aria-live="polite" aria-label="Resultados del diagnóstico">
+    <div class="res-bloque">
+
+      <div class="res-head">
+        <h2>Tu perfil de necesidades</h2>
+        <p>Puntuación sobre 30 por dimensión · 6 ítems × escala 1 – 5 · ítems inversos corregidos</p>
+      </div>
+
+      <div class="scores-grid">
+        <div class="score-cell sc-logro"><div class="sc-label">Logro</div><div class="sc-val" id="sc-logro">—</div><div class="sc-of">/ 30</div><span class="nivel-pill" id="niv-logro"></span></div>
+        <div class="score-cell sc-poder"><div class="sc-label">Poder</div><div class="sc-val" id="sc-poder">—</div><div class="sc-of">/ 30</div><span class="nivel-pill" id="niv-poder"></span></div>
+        <div class="score-cell sc-afil"><div class="sc-label">Afiliación</div><div class="sc-val" id="sc-afil">—</div><div class="sc-of">/ 30</div><span class="nivel-pill" id="niv-afil"></span></div>
+      </div>
+
+      <div class="barras-section">
+        <div class="bar-row"><span class="bar-lbl">Logro (nAch)</span><div class="bar-track"><div class="bar-fill bf-logro" id="bar-logro"></div></div><span class="bar-score" id="bsc-logro">—</span></div>
+        <div class="bar-row"><span class="bar-lbl">Poder (nPow)</span><div class="bar-track"><div class="bar-fill bf-poder" id="bar-poder"></div></div><span class="bar-score" id="bsc-poder">—</span></div>
+        <div class="bar-row"><span class="bar-lbl">Afiliación (nAff)</span><div class="bar-track"><div class="bar-fill bf-afil" id="bar-afil"></div></div><span class="bar-score" id="bsc-afil">—</span></div>
+      </div>
+
+      <!-- Alerta de sesgo -->
+      <div class="alerta-bloque" id="sesgoBloque">
+        <div class="alerta-sesgo" role="alert">
+          <svg class="alerta-sesgo-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M9 2L16.5 15H1.5L9 2Z"/>
+            <line x1="9" y1="8" x2="9" y2="11"/>
+            <circle cx="9" cy="13" r="0.8" fill="currentColor" stroke="none"/>
+          </svg>
+          <div class="alerta-sesgo-body">
+            <div class="alerta-sesgo-titulo">Posible sesgo en tus respuestas</div>
+            <div class="alerta-sesgo-desc" id="sesgoDesc"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerta de empate -->
+      <div class="alerta-bloque" id="empateBloque">
+        <div class="alerta-empate" role="status">
+          <strong>Puntaje empatado:</strong> <span id="empateMsg"></span>
+        </div>
+      </div>
+
+      <div class="perfil-section">
+        <div class="perfil-label">Perfil identificado</div>
+        <div id="perfilCard"></div>
+      </div>
+
+      <div class="nota-section">
+        <div class="nota-content">
+          <svg class="nota-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <circle cx="8" cy="8" r="6.5"/>
+            <line x1="8" y1="7" x2="8" y2="11.5"/>
+            <circle cx="8" cy="4.8" r="0.7" fill="currentColor" stroke="none"/>
+          </svg>
+          <p><strong>Nota metodológica:</strong> Este instrumento es exploratorio, no diagnóstico clínico. McClelland demostró que las necesidades motivacionales no son rasgos fijos: pueden desarrollarse con exposición a contextos y prácticas específicas. Los ítems con <strong>(R)</strong> están redactados en dirección inversa y su puntuación se corrige automáticamente.</p>
+        </div>
+      </div>
+
+      <div class="reflexion-section">
+        <p class="ref-label">Pregunta clave para la discusión</p>
+        <p class="reflexion-q" id="refQ">¿Te reconoces en este resultado? ¿Por qué?</p>
+      </div>
+
+      <div class="ref-section">
+        <p><strong>Referencia:</strong> McClelland, D. C. (1961). <em>The Achieving Society</em>. Van Nostrand. Princeton.</p>
+      </div>
+
+      <div class="acciones">
+        <button class="btn-exportar" id="btnExportar">Exportar resultado (.txt)</button>
+        <button class="btn-reiniciar" id="btnReiniciar">Reiniciar instrumento</button>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Teoría de las Necesidades — David C. McClelland (1961)</p>
+    <p style="margin-top:4px;">Curso: Gestión de las Relaciones en las Organizaciones · Fase 1 · Autodiagnóstico individual</p>
+  </footer>
+
+</main>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
 <script>
-// Mismo contenido pedagógico exacto, sin alteraciones lógicas
-const FB = {
-  A:{
-    cls:'logro', badge:'Motivación de logro — Andrés',
-    title:'Análisis: Andrés, el impulsor técnico',
-    text:'Andrés activa de inmediato la orientación al resultado que la sucursal necesita. Su perfil de alta motivación de logro (McClelland, 1961) genera un ritmo de trabajo visible y contagioso. Sin embargo, en contextos de crisis cultural, la gestión centrada exclusivamente en el rendimiento individual tiende a desplazar el problema de fondo: el equipo deja de esforzarse al percibir que el líder absorbe toda la responsabilidad. La recuperación queda atada a una sola persona.',
-    pros:['Resultados operativos inmediatos','Referente de desempeño claro','Alta orientación al cliente corporativo'],
-    cons:['Riesgo de microgestión sostenida','No aborda el clima tóxico de raíz','El equipo puede volverse pasivo'],
-    qs:['¿Cómo afectaría la microgestión a la retención de los talentos clave del equipo?','¿Qué mecanismos complementarios harían sostenible esta elección más allá del corto plazo?','¿Es viable basar la recuperación principalmente en el esfuerzo de una sola persona?']
-  },
-  B:{
-    cls:'afil', badge:'Motivación de afiliación — Beatriz',
-    title:'Análisis: Beatriz, la cohesionadora emocional',
-    text:'Beatriz tiene la capacidad de detener el deterioro del tejido social de la sucursal, que es una condición necesaria —aunque no suficiente— para la recuperación. Su alta motivación de afiliación (McClelland, 1961) genera entornos de confianza donde los colaboradores pueden expresarse y recomprometerse. El riesgo principal es la confusión entre bienestar y falta de exigencia: un equipo cohesionado pero sin metas claras puede reproducir la caída de resultados con mejor estado de ánimo.',
-    pros:['Restaura la confianza y la cohesión','Reduce la rotación y las tensiones activas','Crea condiciones para el compromiso colectivo'],
-    cons:['Puede evitar el conflicto productivo necesario','Riesgo de desmotivar al personal de alto desempeño','La caída del 30% exige también presión por resultados'],
-    qs:['¿En qué punto la armonía grupal puede frenar la búsqueda de la excelencia operativa?','¿Qué mecanismos de exigencia podrían complementar el estilo de Beatriz?','¿Cómo recuperar metas sin que la presión destruya lo que Beatriz construyó?']
-  },
-  C:{
-    cls:'poder', badge:'Motivación de poder — Lucía',
-    title:'Análisis: Lucía, la arquitecta de poder',
-    text:'Lucía opera desde la motivación de poder socializado (McClelland, 1970): su objetivo declarado es recuperar el peso político de la sucursal ante la Regional, lo que implica renegociar recursos y reestructurar procesos sistémicos. En crisis donde el problema no es solo cultural ni solo operativo, sino también de posicionamiento institucional, este perfil tiene ventajas estratégicas. La advertencia clave es monitorear que la lealtad exigida sea hacia la misión —y no hacia su figura personal— para evitar la deriva hacia el poder personalizado.',
-    pros:['Capacidad para negociar presupuesto y mandato','Visión sistémica de la crisis','Puede reestructurar roles y procesos con autoridad'],
-    cons:['Riesgo de acallar voces críticas necesarias','La lealtad "absoluta" puede derivar en poder personalizado','Requiere mecanismos de seguimiento desde la Regional'],
-    qs:['¿Qué mecanismos debería establecer la Gerencia Regional para que la lealtad sea hacia la misión y no hacia Lucía?','¿Cómo fomentar voces disidentes y feedback honesto dentro de un liderazgo de este tipo?','¿En qué indicadores observaría la Regional que Lucía está derivando hacia el poder personalizado?']
+(function () {
+  'use strict';
+
+  /* ── Constantes ── */
+  const DIMS       = ['logro', 'poder', 'afil'];
+  const N_ITEMS    = 6;
+  const N_TOTAL    = 18;
+  const MAX_DIM    = 30;   // 6 ítems × 5 pts
+  const UMBRAL_ALTO = 18;  // 60 % de 30 = Mod. alto. Coherente con getNivel.
+
+  /*
+   * REVERSOS: qué ítems (índice 0-based) de cada dimensión están invertidos.
+   * Ítem 6 (idx 5) de cada dim es el reverso.
+   * Inversión: score_almacenado = 6 − valor_clicado
+   * Ejemplo: usuario clica 5 → almacena 1 (desacuerdo real con alta nAch)
+   */
+  const REVERSOS = {
+    logro: [false, false, false, false, false, true],
+    poder: [false, false, false, false, false, true],
+    afil:  [false, false, false, false, false, true]
+  };
+
+  /* scores almacenan valores YA CORREGIDOS (directos: tal cual; reversos: 6-v) */
+  const scores = {
+    logro: new Array(N_ITEMS).fill(0),
+    poder: new Array(N_ITEMS).fill(0),
+    afil:  new Array(N_ITEMS).fill(0)
+  };
+
+  let reporteData = null;
+
+  /* ────────────────────────────────────────────
+     INVERSIÓN — fórmula: 6 − valor
+     1→5  2→4  3→3  4→2  5→1
+  ──────────────────────────────────────────── */
+  function invertir(v) { return 6 - v; }
+
+  /* ────────────────────────────────────────────
+     NIVELES — escala 6–30
+     Bandas de 4 pts, consistentes con UMBRAL_ALTO=18
+     Muy alto  26–30  (87–100 %)
+     Alto      22–25  (73–83 %)
+     Mod. alto 18–21  (60–70 %) ← umbral de "alta motivación"
+     Moderado  14–17  (47–57 %)
+     Mod. bajo 10–13  (33–43 %)
+     Bajo       6–9   (20–30 %)
+  ──────────────────────────────────────────── */
+  function getNivel(total) {
+    if (total >= 26) return { label: 'Muy alto',  cls: 'niv-muy-alto' };
+    if (total >= 22) return { label: 'Alto',       cls: 'niv-alto'     };
+    if (total >= 18) return { label: 'Mod. alto',  cls: 'niv-mod-alto' };
+    if (total >= 14) return { label: 'Moderado',   cls: 'niv-moderado' };
+    if (total >= 10) return { label: 'Mod. bajo',  cls: 'niv-mod-bajo' };
+    return                  { label: 'Bajo',        cls: 'niv-bajo'     };
   }
-};
 
-let chosen = null;
-let confirmed = false;
-
-function pick(id){
-  if(confirmed) return;
-  chosen = id;
-  ['A','B','C'].forEach(x=>{
-    const c = document.getElementById('c'+x);
-    if(x===id){
-      c.classList.add('sel');
-      c.setAttribute('aria-checked', 'true');
-    } else {
-      c.classList.remove('sel');
-      c.setAttribute('aria-checked', 'false');
+  /* ────────────────────────────────────────────
+     PERFILES — 7 casos
+  ──────────────────────────────────────────── */
+  const PERFILES = {
+    logro: {
+      cls: 'pc-logro',
+      titulo: 'Perfil dominante — Necesidad de Logro (nAch)',
+      desc: 'Te motivan los resultados medibles, la mejora continua y los desafíos calibrados donde el éxito depende de tu esfuerzo. McClelland describe a las personas con alta nAch como aquellas que buscan retroalimentación clara, asumen responsabilidad personal y eligen tareas de dificultad moderada: ni triviales ni inalcanzables. Es el perfil más asociado al emprendimiento y la excelencia individual.',
+      rec: 'Tu fortaleza es la autodisciplina y la orientación a la excelencia. El riesgo es el aislamiento: cuando el estándar eres tú mismo, puedes perder de vista cómo multiplicar tu impacto a través de otros. Comparte lo que sabes, enseña a tu equipo y pide ayuda antes de estar atascado. Los mejores profesionales no son los que nunca fallan, sino los que aprenden más rápido de sus errores.',
+      reflexion: '¿En qué proyecto reciente sentiste más energía: al superar una meta difícil por tu cuenta, o al lograrlo junto con otros?'
+    },
+    poder: {
+      cls: 'pc-poder',
+      titulo: 'Perfil dominante — Necesidad de Poder (nPow)',
+      desc: 'Te motiva influir en decisiones, orientar el rumbo de los equipos y dejar huella en los resultados colectivos. McClelland distingue el poder personal —dominio sobre personas— del poder socializado —impulsar logros colectivos—. El segundo es el motor de los líderes más efectivos y éticamente responsables.',
+      rec: 'El poder sin propósito legítimo genera resistencia. Cultiva el poder que se otorga voluntariamente: explica el "por qué" detrás de tus decisiones, reconoce las contribuciones del equipo y asume responsabilidad cuando los resultados no llegan. El poder que se gana es más duradero que el que se impone.',
+      reflexion: '¿Tu motivación de influir en otros viene principalmente del beneficio colectivo o del reconocimiento personal? ¿Cómo lo percibes en tu trabajo cotidiano?'
+    },
+    afil: {
+      cls: 'pc-afil',
+      titulo: 'Perfil dominante — Necesidad de Afiliación (nAff)',
+      desc: 'Te motivan las relaciones de confianza, la armonía del grupo y el sentido de pertenencia. Las personas con alta nAff son colaboradoras y empáticas, y construyen ambientes de trabajo psicológicamente seguros. Son valiosas en equipos donde la cohesión importa tanto como los resultados.',
+      rec: 'Tu superpoder es construir confianza; tu punto ciego es priorizar la armonía sobre la honestidad. Las relaciones más sólidas no evitan los conflictos: los transitan con respeto. Practica el feedback directo enfocado en conductas observables: "cuando haces X, el impacto es Y; necesito Z." Dicho con cuidado, el feedback directo fortalece —no debilita— los vínculos.',
+      reflexion: '¿Alguna vez postergaste una decisión difícil para no afectar el clima del equipo? ¿Qué consecuencias tuvo eso para ti o para el grupo?'
+    },
+    logro_poder: {
+      cls: 'pc-mixto',
+      titulo: 'Perfil combinado — Logro + Poder (nAch · nPow)',
+      desc: 'Combinas la búsqueda de resultados con la capacidad de influir en otros. Es el perfil más frecuente en emprendedores, directivos y líderes de proyectos de alto impacto. Sabes qué quieres lograr y cómo movilizar a otros para conseguirlo.',
+      rec: 'El riesgo de este perfil es descuidar el factor humano. Antes de cerrar una decisión, pregúntate: "¿cómo afecta esto a las personas?" Programa espacios sin agenda de resultados, solo para escuchar. Los líderes que solo miden logros terminan con equipos que rinden, pero no equipos comprometidos.',
+      reflexion: '¿Cuándo fue la última vez que priorizaste el bienestar de alguien en tu equipo sobre el cumplimiento de un resultado? ¿Qué aprendiste de eso?'
+    },
+    logro_afil: {
+      cls: 'pc-mixto',
+      titulo: 'Perfil combinado — Logro + Afiliación (nAch · nAff)',
+      desc: 'Buscas resultados sin sacrificar las relaciones. Eres el jugador de equipo ideal: exiges calidad y cuidas a las personas al mismo tiempo. Este perfil es muy valorado en entornos de innovación y aprendizaje colaborativo.',
+      rec: 'Tu punto ciego es evitar conflictos para mantener la armonía. El logro real a veces requiere conversaciones incómodas. Recuerda: "Valoro nuestra relación, y por eso soy honesto contigo sobre este tema." Los equipos de alto rendimiento no evitan conflictos; los resuelven con respeto.',
+      reflexion: '¿Alguna vez postergaste dar feedback difícil a alguien con quien trabajas de cerca? ¿Qué te impidió darlo a tiempo?'
+    },
+    poder_afil: {
+      cls: 'pc-mixto',
+      titulo: 'Perfil combinado — Poder + Afiliación (nPow · nAff)',
+      desc: 'Influyes desde la empatía y el consenso. Eres un líder natural que prefiere persuadir antes que imponer. Excelente para gestionar equipos diversos y procesos de cambio donde la legitimidad importa tanto como la autoridad formal.',
+      rec: 'El desafío es que la búsqueda de consenso no paralice las decisiones. Aprende a diferenciar: en decisiones operativas, escuchas pero decides; en decisiones estratégicas, involucras al equipo. Saber cuándo alternar entre ambos modos es tu clave de efectividad.',
+      reflexion: '¿Hay decisiones que has postergado buscando un consenso que no llegaba? ¿Qué habría pasado si hubieras decidido antes?'
+    },
+    equilibrado: {
+      cls: 'pc-equilibrado',
+      titulo: 'Perfil equilibrado — Logro · Poder · Afiliación',
+      desc: 'Presentas un balance notable entre las tres motivaciones, con las tres dimensiones en niveles altos y una diferencia menor a 6 puntos entre la más alta y la más baja. Es el perfil de líderes que saben leer la situación y activar el impulso más útil en cada momento.',
+      rec: 'Tu desafío es evitar la sobrecarga al querer atender las tres necesidades simultáneamente. Desarrolla la capacidad de alternar conscientemente: en crisis técnica, activa tu tendencia al logro; en negociaciones complejas, tu tendencia al poder; en integración de equipos nuevos, tu tendencia a la afiliación. La efectividad no viene de tener todas las motivaciones altas, sino de saber cuál activar según el contexto.',
+      reflexion: '¿En qué contextos específicos de tu trabajo sientes que cada una de las tres necesidades toma el protagonismo? ¿Lo haces conscientemente?'
     }
+  };
+
+  /* ────────────────────────────────────────────
+     LÓGICA DE PERFIL — corregida v5
+     Correcciones aplicadas:
+     1) Bug "lA&&pA&&pA" → "lA&&pA&&aA"  (ya estaba correcto en v4)
+     2) Bug equilibrado con diff>5: cuando las tres son altas pero
+        una domina claramente, se devuelve el combinado correcto.
+     3) Nuevo: si las tres son altas y diff≤5 → equilibrado.
+        Si las tres son altas y diff>5 → la más alta domina sobre
+        los combinados de dos, para no perder la tercera alta.
+  ──────────────────────────────────────────── */
+  function getPerfilKey(totals) {
+    const lA = totals.logro >= UMBRAL_ALTO;
+    const pA = totals.poder >= UMBRAL_ALTO;
+    const aA = totals.afil  >= UMBRAL_ALTO;
+
+    const maximo = Math.max(totals.logro, totals.poder, totals.afil);
+    const minimo = Math.min(totals.logro, totals.poder, totals.afil);
+    const diff   = maximo - minimo;
+
+    /* Caso equilibrado: las tres altas Y diferencia pequeña (≤5 pts) */
+    if (lA && pA && aA && diff <= 5) return 'equilibrado';
+
+    /*
+     * Caso tres altas pero diff > 5: la dimensión más baja pierde relevancia.
+     * Devolvemos el combinado de las dos con mayor puntuación.
+     * Las claves del diccionario PERFILES siguen el orden canónico:
+     * logro_poder · logro_afil · poder_afil
+     * → normalizamos siempre a ese orden para no producir claves inexistentes.
+     */
+    if (lA && pA && aA && diff > 5) {
+      const orden = ['logro','poder','afil'].sort((a,b) => totals[b]-totals[a]);
+      const top2  = new Set([orden[0], orden[1]]);
+      if (top2.has('logro') && top2.has('poder')) return 'logro_poder';
+      if (top2.has('logro') && top2.has('afil'))  return 'logro_afil';
+      return 'poder_afil';
+    }
+
+    if (lA && pA && !aA) return 'logro_poder';
+    if (lA && !pA && aA) return 'logro_afil';
+    if (!lA && pA && aA) return 'poder_afil';
+
+    /* Solo una alta, o ninguna: dominante por puntuación máxima */
+    if (totals.logro === maximo) return 'logro';
+    if (totals.poder === maximo) return 'poder';
+    return 'afil';
+  }
+
+  /* ────────────────────────────────────────────
+     DETECCIÓN DE SESGO — mejorada v5
+     Detecta tres patrones:
+     A) Todas las respuestas idénticas (aquiescencia extrema)
+     B) Alta inconsistencia directo/reverso: directos altos + reversos
+        en dirección inconsistente (usuario no prestó atención al reverso)
+        → comparamos score clicado en reverso vs lo esperado para alta nX
+        Si alta nAch real → clicó 5 en directos → en reverso debería clicar
+        1 o 2. Si clicó 4 o 5 en reverso → inconsistente.
+     C) Velocidad sospechosa: si todos los ítems tienen el mismo valor.
+  ──────────────────────────────────────────── */
+  /* Guardamos los valores CLICADOS (no corregidos) para detectar sesgo */
+  const clicados = {
+    logro: new Array(N_ITEMS).fill(0),
+    poder: new Array(N_ITEMS).fill(0),
+    afil:  new Array(N_ITEMS).fill(0)
+  };
+
+  function detectarSesgo() {
+    const mensajes = [];
+
+    /* A) Todas iguales */
+    const todos = [];
+    DIMS.forEach(d => clicados[d].forEach(v => { if (v > 0) todos.push(v); }));
+    if (todos.length === N_TOTAL && todos.every(v => v === todos[0])) {
+      mensajes.push(
+        `Respondiste ${todos[0]} en todos los ítems. Esto puede indicar falta de atención a los matices de cada situación.`
+      );
+    }
+
+    /* B) Inconsistencia directo/reverso por dimensión */
+    const nombres = { logro: 'Logro', poder: 'Poder', afil: 'Afiliación' };
+    DIMS.forEach(dim => {
+      const directos  = clicados[dim].filter((_, i) => !REVERSOS[dim][i] && clicados[dim][i] > 0);
+      const revClic   = clicados[dim].filter((_, i) =>  REVERSOS[dim][i] && clicados[dim][i] > 0);
+      if (!directos.length || !revClic.length) return;
+      const mediaDir = directos.reduce((a,b) => a+b, 0) / directos.length;
+      const mediaRev = revClic.reduce((a,b)  => a+b, 0) / revClic.length;
+      /*
+       * Si los directos son altos (media ≥ 4) Y los reversos también
+       * son altos (media ≥ 4), el usuario está siendo inconsistente:
+       * alta nX debería implicar DESacuerdo con el ítem reverso (clic 1-2).
+       * Si los directos son bajos (media ≤ 2) Y los reversos también
+       * son bajos (media ≤ 2), también es inconsistente.
+       */
+      const incoAlto = mediaDir >= 4 && mediaRev >= 4;
+      const incoBajo = mediaDir <= 2 && mediaRev <= 2;
+      if (incoAlto) {
+        mensajes.push(
+          `${nombres[dim]}: marcaste alto en ítems directos Y en el ítem inverso. Revisa el ítem (R) de esta dimensión.`
+        );
+      }
+      if (incoBajo) {
+        mensajes.push(
+          `${nombres[dim]}: marcaste bajo en ítems directos Y en el ítem inverso. Revisa el ítem (R) de esta dimensión.`
+        );
+      }
+    });
+
+    return mensajes;
+  }
+
+  /* ────────────────────────────────────────────
+     PROGRESO
+  ──────────────────────────────────────────── */
+  function actualizarProgreso() {
+    let n = 0;
+    DIMS.forEach(d => scores[d].forEach(v => { if (v !== 0) n++; }));
+    const pct = Math.round((n / N_TOTAL) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressTxt').textContent  = n + ' / ' + N_TOTAL;
+    document.getElementById('progressBar').setAttribute('aria-valuenow', n);
+  }
+
+  /* ────────────────────────────────────────────
+     CONSTRUIR BOTONES DE ESCALA
+  ──────────────────────────────────────────── */
+  function init() {
+    DIMS.forEach(dim => {
+      for (let i = 0; i < N_ITEMS; i++) {
+        const container = document.getElementById(dim + '-' + i);
+        if (!container) continue;
+        for (let v = 1; v <= 5; v++) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'bv';
+          btn.textContent = v;
+          btn.setAttribute('aria-label', v + ' de 5');
+          btn.addEventListener('click', (function (captDim, captI, captV) {
+            return function () {
+              const esPrimerClick = scores[captDim][captI] === 0;
+              /* almacenar valor clicado (para detección de sesgo) */
+              clicados[captDim][captI] = captV;
+              /* almacenar valor corregido */
+              scores[captDim][captI] = REVERSOS[captDim][captI]
+                ? invertir(captV)
+                : captV;
+              if (esPrimerClick) actualizarProgreso();
+              /* resaltar botón seleccionado */
+              container.querySelectorAll('.bv').forEach(b => {
+                b.className = 'bv';
+                if (+b.textContent === captV) b.classList.add('sel-' + captDim);
+              });
+              document.getElementById('item-' + captDim + '-' + captI).classList.add('done');
+              /* persistir con TTL de 2 horas */
+              guardarEstado();
+            };
+          })(dim, i, v));
+          container.appendChild(btn);
+        }
+      }
+    });
+
+    /* restaurar estado si existe y no ha expirado */
+    restaurarEstado();
+  }
+
+  /* ────────────────────────────────────────────
+     PERSISTENCIA — localStorage con TTL de 2h
+     Namespace "mcclelland_v5" para evitar colisión
+     con versiones anteriores o con otros alumnos
+     que compartan dispositivo (se limpia al expirar).
+  ──────────────────────────────────────────── */
+  const LS_KEY = 'mcclelland_v5_estado';
+  const TTL_MS = 2 * 60 * 60 * 1000; // 2 horas
+
+  function guardarEstado() {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify({
+        scores:   scores,
+        clicados: clicados,
+        ts:       Date.now()
+      }));
+    } catch (e) { /* localStorage puede no estar disponible */ }
+  }
+
+  function restaurarEstado() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) return;
+      const { scores: sc, clicados: cl, ts } = JSON.parse(raw);
+      if (Date.now() - ts > TTL_MS) {
+        localStorage.removeItem(LS_KEY);
+        return;
+      }
+      DIMS.forEach(d => {
+        if (sc[d]) scores[d]   = sc[d];
+        if (cl[d]) clicados[d] = cl[d];
+      });
+      /* redibujar botones */
+      DIMS.forEach(dim => {
+        for (let i = 0; i < N_ITEMS; i++) {
+          const valClic = clicados[dim][i];
+          if (!valClic) continue;
+          const container = document.getElementById(dim + '-' + i);
+          if (container) {
+            container.querySelectorAll('.bv').forEach(b => {
+              b.className = 'bv';
+              if (+b.textContent === valClic) b.classList.add('sel-' + dim);
+            });
+          }
+          const itemEl = document.getElementById('item-' + dim + '-' + i);
+          if (itemEl) itemEl.classList.add('done');
+        }
+      });
+      actualizarProgreso();
+    } catch (e) {
+      localStorage.removeItem(LS_KEY);
+    }
+  }
+
+  /* ────────────────────────────────────────────
+     CALCULAR RESULTADOS
+  ──────────────────────────────────────────── */
+  document.getElementById('btnCalc').addEventListener('click', function () {
+    const missing = DIMS.some(d => scores[d].some(v => v === 0));
+    const aviso   = document.getElementById('aviso');
+    if (missing) { aviso.classList.add('show'); return; }
+    aviso.classList.remove('show');
+
+    const totals = {
+      logro: scores.logro.reduce((a,b) => a+b, 0),
+      poder: scores.poder.reduce((a,b) => a+b, 0),
+      afil:  scores.afil.reduce((a,b)  => a+b, 0)
+    };
+
+    /* scores numéricos + niveles */
+    DIMS.forEach(d => {
+      const niv = getNivel(totals[d]);
+      document.getElementById('sc-'  + d).textContent = totals[d];
+      document.getElementById('bsc-' + d).textContent = totals[d] + ' / ' + MAX_DIM;
+      const pill = document.getElementById('niv-' + d);
+      pill.textContent = niv.label;
+      pill.className   = 'nivel-pill ' + niv.cls;
+    });
+
+    /* barras animadas */
+    requestAnimationFrame(() => {
+      DIMS.forEach(d => {
+        const pct = Math.round((totals[d] / MAX_DIM) * 100);
+        document.getElementById('bar-' + d).style.width = pct + '%';
+      });
+    });
+
+    /* empate en el máximo */
+    const maxVal  = Math.max(totals.logro, totals.poder, totals.afil);
+    const empates = DIMS.filter(d => totals[d] === maxVal);
+    const empEl   = document.getElementById('empateBloque');
+    if (empates.length > 1) {
+      const nombres = { logro: 'Logro', poder: 'Poder', afil: 'Afiliación' };
+      document.getElementById('empateMsg').textContent =
+        'Las dimensiones ' + empates.map(d => nombres[d]).join(' y ') +
+        ' tienen el mismo puntaje (' + maxVal + '/' + MAX_DIM +
+        '). El perfil mostrado corresponde a su combinación.';
+      empEl.classList.add('show');
+    } else {
+      empEl.classList.remove('show');
+    }
+
+    /* detección de sesgo */
+    const mensajes = detectarSesgo();
+    const sesgoEl  = document.getElementById('sesgoBloque');
+    if (mensajes.length > 0) {
+      document.getElementById('sesgoDesc').textContent = mensajes.join(' · ');
+      sesgoEl.classList.add('show');
+    } else {
+      sesgoEl.classList.remove('show');
+    }
+
+    /* perfil */
+    const key = getPerfilKey(totals);
+    const p   = PERFILES[key];
+    document.getElementById('perfilCard').innerHTML =
+      '<div class="perfil-card ' + p.cls + '">' +
+        '<div class="perfil-titulo">' + p.titulo + '</div>' +
+        '<div class="perfil-desc">'  + p.desc  + '</div>' +
+        '<div class="perfil-divider"></div>' +
+        '<span class="rec-eyebrow">Para reflexionar y desarrollar</span>' +
+        '<div class="perfil-rec">'  + p.rec   + '</div>' +
+      '</div>';
+    document.getElementById('refQ').textContent = p.reflexion;
+
+    reporteData = {
+      totals, key, p,
+      nivLogro: getNivel(totals.logro).label,
+      nivPoder: getNivel(totals.poder).label,
+      nivAfil:  getNivel(totals.afil).label
+    };
+
+    const box = document.getElementById('resultados');
+    box.classList.add('visible');
+    setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   });
-  const names={A:'Andrés — impulsor técnico',B:'Beatriz — cohesionadora emocional',C:'Lucía — arquitecta de poder'};
-  document.getElementById('sel-lbl').textContent = '✓ '+names[id];
-  const btn = document.getElementById('btn-confirm');
-  btn.disabled = false;
-  btn.removeAttribute('aria-disabled');
-  setProgress(50);
-}
 
-function keyPick(e,id){
-  if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(id);}
-}
+  /* ────────────────────────────────────────────
+     EXPORTAR (.txt)
+  ──────────────────────────────────────────── */
+  document.getElementById('btnExportar').addEventListener('click', function () {
+    if (!reporteData) return;
+    const { totals, p, nivLogro, nivPoder, nivAfil } = reporteData;
+    const fecha = new Date().toLocaleDateString('es-PE', { year:'numeric', month:'long', day:'numeric' });
+    const sep   = '─'.repeat(54);
+    const txt   = [
+      'PERFIL DE NECESIDADES MOTIVACIONALES — McCLELLAND',
+      '='.repeat(54), '',
+      'Curso  : Gestión de las Relaciones en las Organizaciones',
+      'Fase   : 1 — Autodiagnóstico individual',
+      'Fecha  : ' + fecha, '',
+      sep, 'RESULTADOS POR DIMENSIÓN  (máx. 30 pts c/u)', sep,
+      'Logro      (nAch) :  ' + totals.logro + ' / 30   →  ' + nivLogro,
+      'Poder      (nPow) :  ' + totals.poder + ' / 30   →  ' + nivPoder,
+      'Afiliación (nAff) :  ' + totals.afil  + ' / 30   →  ' + nivAfil, '',
+      sep, 'PERFIL IDENTIFICADO', sep,
+      p.titulo, '', p.desc, '',
+      sep, 'PARA REFLEXIONAR Y DESARROLLAR', sep,
+      p.rec, '',
+      sep, 'PREGUNTA CLAVE PARA LA DISCUSIÓN', sep,
+      p.reflexion, '',
+      '='.repeat(54),
+      'Nota: 18 ítems situacionales · 3 ítems inversos (R) con corrección automática.',
+      'Instrumento exploratorio — no diagnóstico clínico.',
+      'Referencia: McClelland, D. C. (1961). The Achieving Society. Van Nostrand.',
+      '='.repeat(54)
+    ].join('\n');
 
-function setProgress(v){
-  const p = document.getElementById('prog');
-  p.style.width = v+'%';
-  p.setAttribute('aria-valuenow',v);
-}
-
-function confirm_pick(){
-  if(!chosen||confirmed) return;
-  confirmed = true;
-
-  const btn = document.getElementById('btn-confirm');
-  btn.disabled = true;
-  btn.setAttribute('aria-disabled','true');
-  btn.style.display = 'none';
-
-  ['A','B','C'].forEach(x=>{
-    document.getElementById('c'+x).classList.add('done');
+    const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = 'perfil-mcclelland-' + new Date().toISOString().slice(0,10) + '.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   });
 
-  document.getElementById('phase-lbl').textContent = 'Fase 2 de 2 — Retroalimentación';
-  setProgress(100);
-
-  const d = FB[chosen];
-  const pros = d.pros.map(p=>`<li>${p}</li>`).join('');
-  const cons = d.cons.map(c=>`<li>${c}</li>`).join('');
-  const qs = d.qs.map(q=>`<li>${q}</li>`).join('');
-
-  const panel = document.getElementById('feedback');
-  panel.className = 'fb-'+d.cls;
-  panel.innerHTML = `
-    <span class="fb-badge ${d.cls}">${d.badge}</span>
-    <h2>${d.title}</h2>
-    <p class="fb-text">${d.text}</p>
-    <div class="tradeoff">
-      <div class="t-box pro"><strong>Fortalezas clave</strong><ul>${pros}</ul></div>
-      <div class="t-box con"><strong>Riesgos a monitorear</strong><ul>${cons}</ul></div>
-    </div>
-    <div class="reflect">
-      <strong>Preguntas para la reflexión crítica:</strong>
-      <ul>${qs}</ul>
-    </div>
-    <div class="fb-actions">
-      <button class="btn-primary btn-sm" onclick="resetCase()">Explorar otra decisión</button>
-    </div>`;
-  panel.style.display = 'block';
-  panel.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-function resetCase(){
-  chosen = null;
-  confirmed = false;
-
-  ['A','B','C'].forEach(x=>{
-    const c = document.getElementById('c'+x);
-    c.classList.remove('sel','done');
-    c.setAttribute('aria-checked','false');
+  /* ────────────────────────────────────────────
+     REINICIAR — limpia todo, incluyendo refQ y localStorage
+  ──────────────────────────────────────────── */
+  document.getElementById('btnReiniciar').addEventListener('click', function () {
+    DIMS.forEach(d => {
+      for (let i = 0; i < N_ITEMS; i++) {
+        scores[d][i]   = 0;
+        clicados[d][i] = 0;
+        const cont = document.getElementById(d + '-' + i);
+        if (cont) cont.querySelectorAll('.bv').forEach(b => b.className = 'bv');
+        const itemEl = document.getElementById('item-' + d + '-' + i);
+        if (itemEl) itemEl.classList.remove('done');
+      }
+      document.getElementById('bar-'  + d).style.width  = '0%';
+      document.getElementById('bsc-'  + d).textContent  = '—';
+      document.getElementById('sc-'   + d).textContent  = '—';
+      const pill = document.getElementById('niv-' + d);
+      if (pill) { pill.textContent = ''; pill.className = 'nivel-pill'; }
+    });
+    document.getElementById('perfilCard').innerHTML = '';
+    document.getElementById('resultados').classList.remove('visible');
+    document.getElementById('aviso').classList.remove('show');
+    document.getElementById('empateBloque').classList.remove('show');
+    document.getElementById('sesgoBloque').classList.remove('show');
+    /* Bug corregido: resetear pregunta de reflexión */
+    document.getElementById('refQ').textContent = '¿Te reconoces en este resultado? ¿Por qué?';
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('progressTxt').textContent  = '0 / ' + N_TOTAL;
+    document.getElementById('progressBar').setAttribute('aria-valuenow', 0);
+    /* Limpiar localStorage */
+    try { localStorage.removeItem(LS_KEY); } catch(e) {}
+    reporteData = null;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  document.getElementById('sel-lbl').textContent = 'Ningún candidato seleccionado';
-  document.getElementById('phase-lbl').textContent = 'Fase 1 de 2 — Selección de candidato';
-  setProgress(20);
-
-  const btn = document.getElementById('btn-confirm');
-  btn.disabled = true;
-  btn.setAttribute('aria-disabled','true');
-  btn.style.display = 'inline-block';
-
-  const panel = document.getElementById('feedback');
-  panel.style.display = 'none';
-  panel.className = '';
-  panel.innerHTML = '';
-
-  document.querySelector('.hdr').scrollIntoView({behavior:'smooth',block:'start'});
-}
+  init();
+})();
 </script>
 </body>
 </html>
